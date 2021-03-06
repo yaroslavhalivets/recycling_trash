@@ -6,12 +6,12 @@ import 'base_bloc.dart';
 import 'bloc_provider.dart';
 
 abstract class BaseScreen<Bloc extends BaseBloc> extends StatefulWidget {
-  BaseScreen({Key key}) : super(key: key);
+  BaseScreen({Key? key}) : super(key: key);
 }
 
 abstract class BaseState<T extends BaseScreen, Bloc extends BaseBloc>
     extends State<T> with AutomaticKeepAliveClientMixin {
-  Bloc bloc;
+  Bloc? bloc;
 
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
@@ -25,7 +25,7 @@ abstract class BaseState<T extends BaseScreen, Bloc extends BaseBloc>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return BlocProvider<Bloc>(
+    return BlocProvider<Bloc?>(
       bloc: bloc,
       child: Scaffold(
         key: scaffoldKey,
@@ -55,9 +55,9 @@ abstract class BaseState<T extends BaseScreen, Bloc extends BaseBloc>
     return Stack(children: <Widget>[
       body(),
       StreamBuilder<bool>(
-        stream: bloc.loadingStream.distinct(),
+        stream: bloc!.loadingStream.distinct(),
         builder: (context, snapshot) {
-          if (snapshot.hasData && snapshot.data) {
+          if (snapshot.hasData && snapshot.data!) {
             return AbsorbPointer(
                 child: Container(
                     width: double.infinity,
@@ -77,16 +77,14 @@ abstract class BaseState<T extends BaseScreen, Bloc extends BaseBloc>
 
   @override
   void dispose() {
-    bloc.dispose();
+    bloc!.dispose();
     super.dispose();
   }
 
   void showSnackBar(String message) {
-    if (message != null) {
-      scaffoldKey.currentState.showSnackBar(SnackBar(
-        content: Text(message),
-      ));
-    }
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(message),
+    ));
   }
 
   bool get primary => true;
@@ -95,13 +93,13 @@ abstract class BaseState<T extends BaseScreen, Bloc extends BaseBloc>
 
   Widget body();
 
-  PreferredSizeWidget appBar() => null;
+  PreferredSizeWidget? appBar() => null;
 
-  Widget drawer() => null;
+  Widget? drawer() => null;
 
-  Widget bottomNavigationBar() => null;
+  Widget? bottomNavigationBar() => null;
 
-  Widget floatingActionButton() => null;
+  Widget? floatingActionButton() => null;
 
   double get drawerEdgeDragWidth => 20.0;
 
@@ -112,5 +110,5 @@ abstract class BaseState<T extends BaseScreen, Bloc extends BaseBloc>
   @override
   bool get wantKeepAlive => false;
 
-  Color backgroundColor() => null;
+  Color? backgroundColor() => null;
 }

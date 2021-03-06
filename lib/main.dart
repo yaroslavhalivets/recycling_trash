@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
           builder: (_context, navigator) {
             return Theme(
               data: _appTheme(_context),
-              child: navigator,
+              child: navigator!,
             );
           },
           theme: _appTheme(context),

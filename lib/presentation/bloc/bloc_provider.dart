@@ -2,12 +2,11 @@ import 'package:flutter/cupertino.dart';
 
 import 'base_bloc.dart';
 
-class BlocProvider<T extends BaseBloc> extends InheritedWidget {
+class BlocProvider<T extends BaseBloc?> extends InheritedWidget {
   final T bloc;
 
-  const BlocProvider({Key key, @required this.bloc, @required Widget child})
+  const BlocProvider({Key? key, required this.bloc, required Widget child})
       : assert(bloc != null),
-        assert(child != null),
         super(key: key, child: child);
 
   @override
@@ -18,11 +17,11 @@ class BlocProvider<T extends BaseBloc> extends InheritedWidget {
   static T of<T extends BaseBloc>(BuildContext context) {
     final Type type = _typeOf<BlocProvider<T>>();
     final viewModel = (context.dependOnInheritedWidgetOfExactType(aspect: type)
-    as BlocProvider<T>) ??
+            as BlocProvider<T>?) ??
         context
             .getElementForInheritedWidgetOfExactType<BlocProvider<T>>()
-            ?.widget as BlocProvider<T>;
+            ?.widget as BlocProvider<T>?;
     if (viewModel == null) throw ('Context does not contains bloc $T');
-    return viewModel?.bloc;
+    return viewModel.bloc;
   }
 }

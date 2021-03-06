@@ -5,12 +5,12 @@ import 'base_bloc.dart';
 import 'bloc_provider.dart';
 
 abstract class BaseDrawer<Bloc extends BaseBloc> extends StatefulWidget {
-  BaseDrawer({Key key}) : super(key: key);
+  BaseDrawer({Key? key}) : super(key: key);
 }
 
 abstract class BaseState<T extends BaseDrawer, Bloc extends BaseBloc>
     extends State<T> {
-  Bloc bloc;
+  Bloc? bloc;
 
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
@@ -23,12 +23,12 @@ abstract class BaseState<T extends BaseDrawer, Bloc extends BaseBloc>
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<Bloc>(bloc: bloc, child: body());
+    return BlocProvider<Bloc?>(bloc: bloc, child: body());
   }
 
   @override
   void dispose() {
-    bloc.dispose();
+    bloc!.dispose();
     super.dispose();
   }
 

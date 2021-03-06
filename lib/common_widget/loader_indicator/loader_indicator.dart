@@ -7,7 +7,7 @@ const _loaderPadding = 2.0;
 class LoadingIndicator extends StatefulWidget {
   final Color color;
 
-  const LoadingIndicator({Key key, this.color = AppColors.mantis})
+  const LoadingIndicator({Key? key, this.color = AppColors.mantis})
       : super(key: key);
 
   @override
@@ -16,9 +16,9 @@ class LoadingIndicator extends StatefulWidget {
 
 class _LoadingIndicatorState extends State<LoadingIndicator>
     with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
-  Animation<double> _sizeAnimation;
-  CurvedAnimation _curve;
+  late final AnimationController _animationController;
+  late final Animation<double> _sizeAnimation;
+  late final CurvedAnimation _curve;
 
   @override
   void initState() {
