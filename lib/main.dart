@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get_it/get_it.dart';
+import 'package:logger/logger.dart';
 import 'package:retrash_app/presentation/bloc/bloc_provider.dart';
 import 'package:retrash_app/presentation/pages/splash_screen/splash_screen.dart';
 import 'package:retrash_app/presentation/resources/app_colors/app_colors.dart';
 
+import 'di/injector.dart';
 import 'presentation/bloc/base_bloc.dart';
 
-void main() {
+final logger = Logger(printer: SimplePrinter());
+final sl = GetIt.instance;
+
+Future<void> main() async {
+  Injector.instance.inject([]);
+
   runApp(MyApp());
 }
 
