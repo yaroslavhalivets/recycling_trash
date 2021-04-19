@@ -1,4 +1,4 @@
-package com.example.retrash_app
+package com.retrash
 
 import io.flutter.embedding.android.FlutterActivity
 
