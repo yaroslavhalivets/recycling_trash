@@ -1,7 +1,9 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
+import 'package:retrash_app/di/modules/api_module.dart';
 import 'package:retrash_app/presentation/bloc/bloc_provider.dart';
 import 'package:retrash_app/presentation/pages/splash_screen/splash_screen.dart';
 import 'package:retrash_app/presentation/resources/app_colors/app_colors.dart';
@@ -13,7 +15,11 @@ final logger = Logger(printer: SimplePrinter());
 final sl = GetIt.instance;
 
 Future<void> main() async {
-  Injector.instance.inject([]);
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  Injector.instance.inject([
+    ApiModule()
+  ]);
 
   runApp(MyApp());
 }
@@ -51,7 +57,6 @@ class MyApp extends StatelessWidget {
         dividerTheme: _dividerTheme(),
         fontFamily: 'Como',
         scaffoldBackgroundColor: AppColors.background,
-        cursorColor: AppColors.onPrimary,
         accentColor: AppColors.mantis,
         primaryColor: AppColors.mantis,
         textTheme: _textTheme(),

@@ -11,7 +11,7 @@ abstract class BaseScreen<Bloc extends BaseBloc> extends StatefulWidget {
 
 abstract class BaseState<T extends BaseScreen, Bloc extends BaseBloc>
     extends State<T> with AutomaticKeepAliveClientMixin {
-  Bloc? bloc;
+  late Bloc bloc;
 
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
@@ -19,13 +19,13 @@ abstract class BaseState<T extends BaseScreen, Bloc extends BaseBloc>
   void initState() {
     super.initState();
     bloc = provideBloc();
-    bloc?.init();
+    bloc.init();
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return BlocProvider<Bloc?>(
+    return BlocProvider<Bloc>(
       bloc: bloc,
       child: Scaffold(
         key: scaffoldKey,
@@ -55,7 +55,7 @@ abstract class BaseState<T extends BaseScreen, Bloc extends BaseBloc>
     return Stack(children: <Widget>[
       body(),
       StreamBuilder<bool>(
-        stream: bloc!.loadingStream.distinct(),
+        stream: bloc.loadingStream.distinct(),
         builder: (context, snapshot) {
           if (snapshot.hasData && snapshot.data!) {
             return AbsorbPointer(
@@ -77,7 +77,7 @@ abstract class BaseState<T extends BaseScreen, Bloc extends BaseBloc>
 
   @override
   void dispose() {
-    bloc!.dispose();
+    bloc.dispose();
     super.dispose();
   }
 

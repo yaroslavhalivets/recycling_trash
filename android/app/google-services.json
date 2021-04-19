@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "842378350108",
+    "project_id": "retrash-a59b7",
+    "storage_bucket": "retrash-a59b7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:842378350108:android:a5c2bec1d684d1f3c999d9",
+        "android_client_info": {
+          "package_name": "com.retrash"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "842378350108-7lq2gj5hi6e8od3idrqfguuttjruc8vr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCr0dGG4sj3eGH8ljZiGo-NGNA_dYn9Jyg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "842378350108-7lq2gj5hi6e8od3idrqfguuttjruc8vr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "842378350108-60ul8odvc636ndtkv4mpp02d39goqsqe.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.retrash"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

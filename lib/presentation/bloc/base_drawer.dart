@@ -10,7 +10,7 @@ abstract class BaseDrawer<Bloc extends BaseBloc> extends StatefulWidget {
 
 abstract class BaseState<T extends BaseDrawer, Bloc extends BaseBloc>
     extends State<T> {
-  Bloc? bloc;
+  late Bloc bloc;
 
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
@@ -18,17 +18,17 @@ abstract class BaseState<T extends BaseDrawer, Bloc extends BaseBloc>
   void initState() {
     super.initState();
     bloc = provideBloc();
-    bloc?.init();
+    bloc.init();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<Bloc?>(bloc: bloc, child: body());
+    return BlocProvider<Bloc>(bloc: bloc, child: body());
   }
 
   @override
   void dispose() {
-    bloc!.dispose();
+    bloc.dispose();
     super.dispose();
   }
 
