@@ -36,6 +36,7 @@ abstract class BaseState<T extends BaseScreen, Bloc extends BaseBloc>
         drawerEdgeDragWidth: drawerEdgeDragWidth,
         bottomNavigationBar: bottomNavigationBar(),
         floatingActionButton: floatingActionButton(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         body: _buildBody(),
       ),
     );

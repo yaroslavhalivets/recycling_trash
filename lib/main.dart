@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 import 'package:retrash_app/di/modules/api_module.dart';
+import 'package:retrash_app/di/modules/injectors_module.dart';
+import 'package:retrash_app/di/modules/repository_module.dart';
 import 'package:retrash_app/presentation/bloc/bloc_provider.dart';
 import 'package:retrash_app/presentation/pages/splash_screen/splash_screen.dart';
 import 'package:retrash_app/presentation/resources/app_colors/app_colors.dart';
@@ -17,7 +19,8 @@ final sl = GetIt.instance;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  Injector.instance.inject([ApiModule()]);
+  Injector.instance
+      .inject([ApiModule(), RepositoryModule(), InjectorsModule()]);
 
   runApp(MyApp());
 }
