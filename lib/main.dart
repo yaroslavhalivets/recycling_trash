@@ -17,9 +17,7 @@ final sl = GetIt.instance;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  Injector.instance.inject([
-    ApiModule()
-  ]);
+  Injector.instance.inject([ApiModule()]);
 
   runApp(MyApp());
 }
@@ -91,8 +89,8 @@ class MyApp extends StatelessWidget {
   TextTheme _textTheme() {
     return TextTheme(
       headline1: TextStyle(
-          color: Colors.white,
-          fontSize: 35.0,
+          color: AppColors.surface,
+          fontSize: 60.0,
           fontWeight: FontWeight.bold,
           fontFamily: 'Como'),
       subtitle2: TextStyle(
@@ -108,9 +106,9 @@ class MyApp extends StatelessWidget {
           color: AppColors.onPrimary,
           fontSize: 16.0,
           fontWeight: FontWeight.w500),
-      button: TextStyle(fontWeight: FontWeight.w400, fontSize: 16.0),
+      button: TextStyle(fontWeight: FontWeight.w400, fontSize: 14.0),
       bodyText2: TextStyle(
-          color: AppColors.onPrimary,
+          color: AppColors.mineShaft,
           fontSize: 16.0,
           fontWeight: FontWeight.w400),
       overline:

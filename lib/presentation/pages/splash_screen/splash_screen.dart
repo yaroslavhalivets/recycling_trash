@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:retrash_app/common_widget/loader_indicator/loader_indicator.dart';
+import 'package:retrash_app/presentation/pages/auth_screen/auth_screen.dart';
 import 'package:retrash_app/presentation/resources/app_colors/app_colors.dart';
 import 'package:retrash_app/presentation/resources/app_images/app_images.dart';
 import 'package:retrash_app/presentation/resources/app_strings/app_strings.dart';
@@ -15,7 +16,10 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    //TODO: navigate to home page
+    Future.delayed(
+        const Duration(seconds: 3),
+        () => Navigator.of(context)
+            .push(MaterialPageRoute(builder: (_) => AuthScreen())));
   }
 
   @override
@@ -36,10 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
               Text(
                 AppStrings.appName,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline1!
-                    .copyWith(fontSize: 60),
+                style: Theme.of(context).textTheme.headline1,
               ),
               Expanded(
                 child: const LoadingIndicator(
