@@ -49,6 +49,9 @@ class _PasswordCreationPageState extends State<PasswordCreationPage> {
               width: MediaQuery.of(context).size.width * 0.9,
               isValid: (text) => Patterns.password.hasMatch(text),
               error: AppStrings.invalidPassword,
+              formatter: [
+                FilteringTextInputFormatter.deny(Patterns.passwordFormatter),
+              ],
             ),
             MainTextField(
               padding: const EdgeInsets.only(top: 20.0),
@@ -57,6 +60,9 @@ class _PasswordCreationPageState extends State<PasswordCreationPage> {
               width: MediaQuery.of(context).size.width * 0.9,
               isValid: (text) => Patterns.password.hasMatch(text),
               error: AppStrings.invalidPassword,
+              formatter: [
+                FilteringTextInputFormatter.deny(Patterns.passwordFormatter),
+              ],
             ),
             const SizedBox(
               height: 30.0,

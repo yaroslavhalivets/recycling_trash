@@ -5,4 +5,5 @@ class Patterns {
       RegExp(r'^[(][0-9]{3}[)]-?[0-9]{3}-?[0-9]{4}');
   static final RegExp password =
       RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
+  static final RegExp passwordFormatter = RegExp(r'[^A-Za-z0-9]+');
 }

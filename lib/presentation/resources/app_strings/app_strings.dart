@@ -28,4 +28,6 @@ class AppStrings {
   static const String phoneError = 'Неправильний номер телефону';
   static const String userNotFound = 'Користувач не знайдений';
   static const String passwordNotMatch = 'Паролі не співпадають';
+  static const String passwordAnnotation =
+      'Пароль повинен містити англійські букви і цифри.';
 }

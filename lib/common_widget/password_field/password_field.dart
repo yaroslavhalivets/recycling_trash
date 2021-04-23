@@ -31,6 +31,9 @@ class _PasswordFieldState extends State<PasswordField> {
       ),
       isValid: (text) => Patterns.password.hasMatch(text),
       error: AppStrings.invalidPassword,
+      formatter: [
+        FilteringTextInputFormatter.allow(Patterns.passwordFormatter),
+      ],
     );
   }
 
