@@ -57,7 +57,6 @@ class MyApp extends StatelessWidget {
         appBarTheme: AppBarTheme(
             brightness: Brightness.light, color: Colors.transparent),
         dividerTheme: _dividerTheme(),
-        fontFamily: 'Como',
         scaffoldBackgroundColor: AppColors.background,
         accentColor: AppColors.mantis,
         primaryColor: AppColors.mantis,
@@ -94,37 +93,26 @@ class MyApp extends StatelessWidget {
     return TextTheme(
       headline1: TextStyle(
           color: AppColors.surface,
-          fontSize: 60.0,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'Como'),
+          fontSize: 50.0,
+          fontFamily: 'Como',
+          fontWeight: FontWeight.bold),
+      subtitle1: TextStyle(
+          fontSize: 30.0,
+          color: AppColors.onPrimary,
+          fontWeight: FontWeight.bold),
       subtitle2: TextStyle(
           color: AppColors.onPrimary,
           fontSize: 20.0,
           fontWeight: FontWeight.w500),
-      subtitle1: TextStyle(
-          fontSize: 20.0,
-          color: AppColors.onPrimary,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'Manjari'),
       bodyText1: TextStyle(
           color: AppColors.onPrimary,
-          fontSize: 16.0,
+          fontSize: 18.0,
           fontWeight: FontWeight.w500),
-      button: TextStyle(fontWeight: FontWeight.w400, fontSize: 14.0),
+      button: TextStyle(fontWeight: FontWeight.w400, fontSize: 16.0),
       bodyText2: TextStyle(
           color: AppColors.mineShaft,
           fontSize: 16.0,
           fontWeight: FontWeight.w400),
-      overline:
-          TextStyle(fontSize: 48.0, height: 1.2, color: AppColors.lightKhaki),
-      headline4: TextStyle(
-          color: AppColors.onPrimary,
-          fontSize: 15.0,
-          fontWeight: FontWeight.w500),
-      headline3: TextStyle(
-          color: AppColors.onPrimary,
-          fontSize: 20.0,
-          fontWeight: FontWeight.bold),
     );
   }
 

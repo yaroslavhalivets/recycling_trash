@@ -34,7 +34,7 @@ class PhotoPicker extends StatelessWidget {
             padding: const EdgeInsets.only(top: 10),
             child: Text(
               AppStrings.chooseImage,
-              style: Theme.of(context).textTheme.bodyText1?.copyWith(
+              style: Theme.of(context).textTheme.bodyText2?.copyWith(
                     color: AppColors.mantis,
                   ),
             ),

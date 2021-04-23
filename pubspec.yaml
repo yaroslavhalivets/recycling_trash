@@ -32,9 +32,8 @@ dependencies:
   firebase_storage: ^8.0.4
   image_picker: ^0.7.4
   dots_indicator: ^2.0.0
-  flag:
-  flutter_svg:
   location: ^4.1.1
+
 
 
 
@@ -61,7 +60,6 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
-    - json/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -78,19 +76,8 @@ flutter:
     - family: Como
       fonts:
         - asset: fonts/Como_W01_Regular.ttf
-        - asset: fonts/Como_W01_Light.ttf
-        - asset: fonts/Como_W01_Heavy.ttf
-        - asset: fonts/Como_W01_Bold.ttf
-        - asset: fonts/Como_W01_Medium.ttf
 
-    - family: Manjari
-      fonts:
-        - asset: fonts/Manjari_Bold.ttf
-        - asset: fonts/Manjari-Regular.ttf
 
-    - family: BebasNeue
-      fonts:
-        - asset: fonts/BebasNeueBold.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

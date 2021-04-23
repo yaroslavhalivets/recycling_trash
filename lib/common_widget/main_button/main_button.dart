@@ -17,6 +17,7 @@ class MainButton extends StatefulWidget {
   final Color textColor;
   final Color mainColor;
   final BoxBorder? boxBorder;
+  final EdgeInsets? padding;
 
   const MainButton(
       {Key? key,
@@ -27,7 +28,9 @@ class MainButton extends StatefulWidget {
       this.onDone,
       this.textColor = AppColors.surface,
       this.mainColor = AppColors.mantis,
-      this.onError, this.boxBorder})
+      this.onError,
+      this.boxBorder,
+      this.padding})
       : super(key: key);
 
   MainButton.fromText(String text,
@@ -37,10 +40,11 @@ class MainButton extends StatefulWidget {
       this.onDone,
       this.textColor = AppColors.surface,
       this.mainColor = AppColors.mantis,
-      this.onError, this.boxBorder})
+      this.onError,
+      this.boxBorder, this.padding})
       : child = Text(text,
             style: TextStyle(
-                fontSize: 14,
+                fontSize: 16,
                 color: onTap == null ? textColor.withOpacity(0.5) : textColor));
 
   @override
@@ -52,28 +56,31 @@ class _MainButtonState extends State<MainButton> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _handleTap,
-      child: Container(
-        height: widget.height,
-        width: widget.width,
-        decoration: BoxDecoration(
-            border: widget.boxBorder,
-            color: _isButtonDisabled()
-                ? widget.mainColor.withOpacity(0.5)
-                : widget.mainColor,
-            borderRadius: const BorderRadius.all(
-              const Radius.circular(8.0),
-            )),
-        child: Center(
-          child: AnimatedSwitcher(
-            duration: _kAnimationDuration,
-            transitionBuilder: (Widget child, Animation<double> animation) {
-              return ScaleTransition(scale: animation, child: child);
-            },
-            child: _responseState == _ResponseState.done
-                ? widget.child
-                : const LoadingIndicator(color: Colors.white),
+    return Padding(
+      padding: widget.padding ?? EdgeInsets.zero,
+      child: GestureDetector(
+        onTap: _handleTap,
+        child: Container(
+          height: widget.height,
+          width: widget.width,
+          decoration: BoxDecoration(
+              border: widget.boxBorder,
+              color: _isButtonDisabled()
+                  ? widget.mainColor.withOpacity(0.5)
+                  : widget.mainColor,
+              borderRadius: const BorderRadius.all(
+                const Radius.circular(8.0),
+              )),
+          child: Center(
+            child: AnimatedSwitcher(
+              duration: _kAnimationDuration,
+              transitionBuilder: (Widget child, Animation<double> animation) {
+                return ScaleTransition(scale: animation, child: child);
+              },
+              child: _responseState == _ResponseState.done
+                  ? widget.child
+                  : const LoadingIndicator(color: Colors.white),
+            ),
           ),
         ),
       ),

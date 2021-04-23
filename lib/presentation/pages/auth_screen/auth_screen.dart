@@ -6,6 +6,7 @@ import 'package:retrash_app/common_widget/password_field/password_field.dart';
 import 'package:retrash_app/common_widget/underlined_text_button/underlined_text_button.dart';
 import 'package:retrash_app/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:retrash_app/presentation/bloc/base_screen.dart';
+import 'package:retrash_app/presentation/bloc/error_dispatcher.dart';
 import 'package:retrash_app/presentation/pages/home_screen/home_screen.dart';
 import 'package:retrash_app/presentation/pages/registration_screen/registration_screen.dart';
 import 'package:retrash_app/presentation/resources/app_colors/app_colors.dart';
@@ -18,7 +19,8 @@ class AuthScreen extends BaseScreen {
   State<StatefulWidget> createState() => _AuthScreenState();
 }
 
-class _AuthScreenState extends BaseState<AuthScreen, AuthBloc> {
+class _AuthScreenState extends BaseState<AuthScreen, AuthBloc>
+    with ErrorDispatcher<AuthScreen, AuthBloc> {
   final GlobalKey<FormState> _formState = GlobalKey<FormState>();
 
   final TextEditingController _emailTextEditingController =
@@ -43,8 +45,9 @@ class _AuthScreenState extends BaseState<AuthScreen, AuthBloc> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                _Logo(),
+                const _Logo(),
                 MainTextField(
+                  padding: const EdgeInsets.only(top: 20.0),
                   textEditingController: _emailTextEditingController,
                   hintText: AppStrings.login,
                   width: MediaQuery.of(context).size.width * 0.9,
@@ -54,24 +57,20 @@ class _AuthScreenState extends BaseState<AuthScreen, AuthBloc> {
                 PasswordField(
                   controller: _passwordTextEditingController,
                 ),
-                Padding(
+                UnderlinedTextButton(
                   padding: const EdgeInsets.only(top: 8.0),
-                  child: UnderlinedTextButton(
-                    text: AppStrings.register,
-                    textColor: AppColors.surface,
-                    onTap: _onRegistrationTap,
-                  ),
+                  text: AppStrings.register,
+                  textColor: AppColors.mantis,
+                  decorationColor: AppColors.mantis.withOpacity(0.5),
+                  onPressed: _onRegistrationTap,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
-                  child: ValueListenableBuilder<bool>(
-                    valueListenable: _activeButtonNotifier,
-                    builder: (context, value, _) {
-                      return MainButton.fromText(AppStrings.enter,
-                          width: MediaQuery.of(context).size.width * 0.9,
-                          onTap: value ? onLogInTap : null);
-                    },
-                  ),
+                ValueListenableBuilder<bool>(
+                  valueListenable: _activeButtonNotifier,
+                  builder: (context, value, _) {
+                    return MainButton.fromText(AppStrings.enter,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        onTap: value ? _onLogInTap : null);
+                  },
                 ),
               ],
             ),
@@ -103,16 +102,14 @@ class _AuthScreenState extends BaseState<AuthScreen, AuthBloc> {
             _emailTextEditingController.text.trim().isNotEmpty;
   }
 
-  Future<void> onLogInTap() async {
+  Future<void> _onLogInTap() async {
     if (_validate()) {
       bloc
           .logIn(_emailTextEditingController.text,
               _passwordTextEditingController.text)
           .then((credential) {
-        if (credential != null) {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (_) => HomeScreen()));
-        }
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (_) => HomeScreen()));
       });
     }
   }
