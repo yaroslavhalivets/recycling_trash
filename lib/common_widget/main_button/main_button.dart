@@ -16,6 +16,7 @@ class MainButton extends StatefulWidget {
   final VoidCallback? onError;
   final Color textColor;
   final Color mainColor;
+  final BoxBorder? boxBorder;
 
   const MainButton(
       {Key? key,
@@ -26,7 +27,7 @@ class MainButton extends StatefulWidget {
       this.onDone,
       this.textColor = AppColors.surface,
       this.mainColor = AppColors.mantis,
-      this.onError})
+      this.onError, this.boxBorder})
       : super(key: key);
 
   MainButton.fromText(String text,
@@ -36,7 +37,7 @@ class MainButton extends StatefulWidget {
       this.onDone,
       this.textColor = AppColors.surface,
       this.mainColor = AppColors.mantis,
-      this.onError})
+      this.onError, this.boxBorder})
       : child = Text(text,
             style: TextStyle(
                 fontSize: 14,
@@ -57,6 +58,7 @@ class _MainButtonState extends State<MainButton> {
         height: widget.height,
         width: widget.width,
         decoration: BoxDecoration(
+            border: widget.boxBorder,
             color: _isButtonDisabled()
                 ? widget.mainColor.withOpacity(0.5)
                 : widget.mainColor,

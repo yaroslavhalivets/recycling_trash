@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:retrash_app/common_widget/clear_search_button/clear_search_button.dart';
 import 'package:retrash_app/presentation/resources/app_colors/app_colors.dart';
 import 'package:retrash_app/presentation/resources/app_strings/app_strings.dart';
 
@@ -23,6 +24,13 @@ class MainTextField extends StatefulWidget {
   final bool emptyEnabled;
   final bool obscureText;
   final String? suffixText;
+  final Widget? prefixIcon;
+  final FocusNode? focusNode;
+  final TextInputAction? textInputAction;
+  final EdgeInsets? contentPadding;
+  final TextStyle? fieldStyle;
+  final Color? fillColor;
+  final TextStyle? hintStyle;
 
   const MainTextField(
       {Key? key,
@@ -41,8 +49,44 @@ class MainTextField extends StatefulWidget {
       this.maxLines = 1,
       this.emptyEnabled = false,
       this.obscureText = false,
-      this.suffixText})
+      this.suffixText,
+      this.prefixIcon,
+      this.focusNode,
+      this.textInputAction,
+      this.contentPadding,
+      this.fieldStyle,
+      this.fillColor, this.hintStyle})
       : super(key: key);
+
+  MainTextField.withClearButton(bool displayClearButton,
+      {this.textEditingController,
+      this.hintText,
+      this.formatter,
+      this.inputType,
+      this.isValid,
+      this.error,
+      this.suffixIcon,
+      this.onChanged,
+      this.onFieldSubmitted,
+      this.width,
+      this.height,
+      this.paddingTop = 20.0,
+      this.maxLines,
+      this.emptyEnabled = false,
+      this.obscureText = false,
+      this.suffixText,
+      this.focusNode,
+      this.textInputAction,
+      this.contentPadding,
+      this.fieldStyle,
+      this.fillColor, this.hintStyle})
+      : prefixIcon = displayClearButton
+            ? ClearSearchButton(
+                onTap: () {
+                  textEditingController?.clear();
+                },
+              )
+            : null;
 
   @override
   _MainTextFieldState createState() => _MainTextFieldState();
@@ -57,22 +101,23 @@ class _MainTextFieldState extends State<MainTextField> {
         height: widget.height,
         width: widget.width,
         child: TextFormField(
-            style: Theme.of(context)
-                .textTheme
-                .bodyText1,
+            focusNode: widget.focusNode,
+            style: widget.fieldStyle ?? Theme.of(context).textTheme.bodyText1,
             obscureText: widget.obscureText,
             keyboardType: widget.inputType,
             controller: widget.textEditingController,
             maxLines: widget.maxLines,
             decoration: InputDecoration(
-                fillColor: AppColors.surface,
+                fillColor: widget.fillColor ?? AppColors.surface,
                 filled: true,
+                contentPadding: widget.contentPadding,
                 suffixText: widget.suffixText,
                 suffixStyle: Theme.of(context).textTheme.bodyText2,
                 hintText: widget.hintText,
-                hintStyle: Theme.of(context).textTheme.bodyText2,
+                hintStyle: widget.hintStyle ?? Theme.of(context).textTheme.bodyText2,
                 suffixIcon: widget.suffixIcon,
-                errorMaxLines: 2,
+                prefixIcon: widget.prefixIcon,
+                errorMaxLines: 3,
                 errorStyle: Theme.of(context)
                     .textTheme
                     .button

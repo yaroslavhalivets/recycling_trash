@@ -11,6 +11,7 @@ import 'package:retrash_app/presentation/pages/splash_screen/splash_screen.dart'
 import 'package:retrash_app/presentation/resources/app_colors/app_colors.dart';
 
 import 'di/injector.dart';
+import 'di/modules/location_module.dart';
 import 'presentation/bloc/base_bloc.dart';
 
 final logger = Logger(printer: SimplePrinter());
@@ -19,8 +20,8 @@ final sl = GetIt.instance;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  Injector.instance
-      .inject([ApiModule(), RepositoryModule(), InjectorsModule()]);
+  Injector.instance.inject(
+      [ApiModule(), RepositoryModule(), InjectorsModule(), LocationModule()]);
 
   runApp(MyApp());
 }

@@ -29,6 +29,13 @@ dependencies:
   firebase_core: ^1.0.3
   firebase_auth: ^1.1.0
   cloud_firestore: ^1.0.5
+  firebase_storage: ^8.0.4
+  image_picker: ^0.7.4
+  dots_indicator: ^2.0.0
+  flag:
+  flutter_svg:
+  location: ^4.1.1
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -54,6 +61,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - json/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
