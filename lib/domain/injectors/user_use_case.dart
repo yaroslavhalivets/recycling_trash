@@ -6,9 +6,9 @@ import 'package:retrash_app/main.dart';
 class UserUseCase {
   UserRepository _repository = sl.get<UserRepository>();
 
-  Future<UserCredential?> logIn(String email, String password) =>
+  Future<UserCredential> logIn(String email, String password) =>
       _repository.logIn(email, password);
 
-  Future<UserCredential?> signUp(AuthRequest request) =>
+  Future<UserCredential> signUp(AuthRequest request) =>
       _repository.signUp(request);
 }

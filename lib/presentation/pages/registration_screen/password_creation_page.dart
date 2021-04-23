@@ -1,40 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:retrash_app/common_widget/error_parser/error_parser.dart';
 import 'package:retrash_app/common_widget/main_button/main_button.dart';
 import 'package:retrash_app/common_widget/main_text_field/main_text_field.dart';
 import 'package:retrash_app/data/requests/auth_request.dart';
 import 'package:retrash_app/presentation/bloc/bloc_provider.dart';
 import 'package:retrash_app/presentation/bloc/registration_bloc/registration_bloc.dart';
-import 'package:retrash_app/presentation/pages/registration_screen/complete_registration_page.dart';
-import 'package:retrash_app/presentation/pages/registration_screen/page_position.dart';
+import 'package:retrash_app/presentation/pages/home_screen/home_screen.dart';
 import 'package:retrash_app/presentation/resources/app_colors/app_colors.dart';
 import 'package:retrash_app/presentation/resources/app_strings/app_strings.dart';
-import 'package:retrash_app/utils/page_view_animation_settings.dart';
 import 'package:retrash_app/utils/patterns.dart';
 
-const _passwordMinLength = 9;
-
-class PasswordCreationScreen extends StatefulWidget {
+class PasswordCreationPage extends StatefulWidget {
   final PageController pageController;
+  final Duration transitionDuration;
+  final Curve transitionCurve;
 
-  const PasswordCreationScreen({Key? key, required this.pageController})
+  const PasswordCreationPage(
+      {Key? key,
+      required this.pageController,
+      required this.transitionDuration,
+      required this.transitionCurve})
       : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _PasswordCreationScreenState();
+  State<StatefulWidget> createState() => _PasswordCreationPageState();
 }
 
-class _PasswordCreationScreenState extends State<PasswordCreationScreen> {
+class _PasswordCreationPageState extends State<PasswordCreationPage> {
   final GlobalKey<FormState> _formState = GlobalKey<FormState>();
 
   final TextEditingController _passwordEditingController =
       TextEditingController();
   final TextEditingController _repeatPasswordEditingController =
       TextEditingController();
-
-  final ValueNotifier<String> _errorNotifier = ValueNotifier<String>('');
 
   @override
   Widget build(BuildContext context) {
@@ -44,28 +43,27 @@ class _PasswordCreationScreenState extends State<PasswordCreationScreen> {
         child: Column(
           children: [
             MainTextField(
+              padding: const EdgeInsets.only(top: 20.0),
               textEditingController: _passwordEditingController,
               hintText: AppStrings.password,
               width: MediaQuery.of(context).size.width * 0.9,
-              isValid: (text) => Patterns.passwordValidation(text),
+              isValid: (text) => Patterns.password.hasMatch(text),
               error: AppStrings.invalidPassword,
               formatter: [
-                LengthLimitingTextInputFormatter(_passwordMinLength),
-                FilteringTextInputFormatter.allow(Patterns.password)
+                FilteringTextInputFormatter.deny(Patterns.passwordFormatter),
               ],
             ),
             MainTextField(
+              padding: const EdgeInsets.only(top: 20.0),
               textEditingController: _repeatPasswordEditingController,
               hintText: AppStrings.approve,
               width: MediaQuery.of(context).size.width * 0.9,
-              isValid: (text) => Patterns.passwordValidation(text),
+              isValid: (text) => Patterns.password.hasMatch(text),
               error: AppStrings.invalidPassword,
               formatter: [
-                LengthLimitingTextInputFormatter(_passwordMinLength),
-                FilteringTextInputFormatter.allow(Patterns.password)
+                FilteringTextInputFormatter.deny(Patterns.passwordFormatter),
               ],
             ),
-            ErrorParser(notifier: _errorNotifier),
             const SizedBox(
               height: 30.0,
             ),
@@ -78,10 +76,8 @@ class _PasswordCreationScreenState extends State<PasswordCreationScreen> {
                     boxBorder: Border.all(color: AppColors.mineShaft),
                     width: MediaQuery.of(context).size.width * 0.43,
                     onTap: _onBackTap),
-                const SizedBox(
-                  width: 10.0,
-                ),
                 MainButton.fromText(AppStrings.finishRegistration,
+                    padding: const EdgeInsets.only(left: 10.0),
                     width: MediaQuery.of(context).size.width * 0.43,
                     onTap: _onFinishTap),
               ],
@@ -96,7 +92,6 @@ class _PasswordCreationScreenState extends State<PasswordCreationScreen> {
   void dispose() {
     _passwordEditingController.dispose();
     _repeatPasswordEditingController.dispose();
-    _errorNotifier.dispose();
     super.dispose();
   }
 
@@ -105,30 +100,25 @@ class _PasswordCreationScreenState extends State<PasswordCreationScreen> {
       _repeatPasswordEditingController.text.trim();
 
   Future<void> _onFinishTap() async {
-    if (_formState.currentState!.validate() && _validate()) {
-      _formState.currentState!.save();
-
-      var bloc = BlocProvider.of<RegistrationBloc>(context);
-      AuthRequest request = bloc.authRequest;
-      request.password = _passwordEditingController.text.trim();
-      if (!request.isEmpty()) {
-        await bloc.signUp(request).then((_) {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (_) => const CompleteRegistrationPage()));
-        });
+    var bloc = BlocProvider.of<RegistrationBloc>(context);
+    if (_formState.currentState!.validate()) {
+      if (_validate()) {
+        AuthRequest request = bloc.authRequest;
+        request.password = _passwordEditingController.text.trim();
+        if (!request.isEmpty()) {
+          await bloc.signUp(request).then((_) {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (_) => HomeScreen()));
+          });
+        }
+      } else {
+        bloc.dispatchError(AppStrings.passwordNotMatch);
       }
-    } else {
-      _errorMessage(AppStrings.notMatch);
     }
   }
 
   Future<void> _onBackTap() async {
-    await widget.pageController.animateToPage(PagePosition.firstPageIndex,
-        duration: PageViewAnimationSettings.transitionDuration,
-        curve: PageViewAnimationSettings.transitionCurve);
-  }
-
-  void _errorMessage(String message) {
-    _errorNotifier.value = message;
+    await widget.pageController.previousPage(
+        duration: widget.transitionDuration, curve: widget.transitionCurve);
   }
 }

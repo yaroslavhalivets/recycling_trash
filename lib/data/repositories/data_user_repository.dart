@@ -9,11 +9,11 @@ class DataUserRepository implements UserRepository {
 
   DataUserRepository() : _db = sl.get<Db>();
 
-  Future<UserCredential?> logIn(String email, String password) {
+  Future<UserCredential> logIn(String email, String password) {
     return _db.signIn(email, password);
   }
 
-  Future<UserCredential?> signUp(AuthRequest request) async {
+  Future<UserCredential> signUp(AuthRequest request) async {
     return _db.signUp(request.email, request.password);
   }
 }

@@ -1,37 +1,38 @@
 import 'dart:io';
 
-import 'package:flag/flag.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:retrash_app/common_widget/country_code_picker/country_code_picker.dart';
 import 'package:retrash_app/common_widget/image_picker_alert/image_picker_alert.dart';
 import 'package:retrash_app/common_widget/main_button/main_button.dart';
 import 'package:retrash_app/common_widget/main_text_field/main_text_field.dart';
 import 'package:retrash_app/common_widget/photo_picker/photo_picker.dart';
-import 'package:retrash_app/data/api/country_api.dart';
+import 'package:retrash_app/data/requests/auth_request.dart';
 import 'package:retrash_app/presentation/bloc/bloc_provider.dart';
 import 'package:retrash_app/presentation/bloc/registration_bloc/registration_bloc.dart';
-import 'package:retrash_app/presentation/pages/registration_screen/page_position.dart';
-import 'package:retrash_app/presentation/resources/app_colors/app_colors.dart';
-import 'package:retrash_app/presentation/resources/app_images/app_images.dart';
 import 'package:retrash_app/presentation/resources/app_strings/app_strings.dart';
-import 'package:retrash_app/utils/page_view_animation_settings.dart';
 import 'package:retrash_app/utils/patterns.dart';
+import 'package:retrash_app/utils/phone_number_formatter.dart';
 
-class UserInfoScreen extends StatefulWidget {
+class UserInfoPage extends StatefulWidget {
   final PageController pageController;
+  final Duration transitionDuration;
+  final Curve transitionCurve;
 
-  const UserInfoScreen({Key? key, required this.pageController})
+  const UserInfoPage(
+      {Key? key,
+      required this.pageController,
+      required this.transitionDuration,
+      required this.transitionCurve})
       : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _UserInfoScreenState();
+  State<StatefulWidget> createState() => _UserInfoPageState();
 }
 
-class _UserInfoScreenState extends State<UserInfoScreen> {
+class _UserInfoPageState extends State<UserInfoPage> {
   final GlobalKey<FormState> _formState = GlobalKey<FormState>();
 
   final TextEditingController _nameEditingController = TextEditingController();
@@ -47,6 +48,13 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
   @override
   void initState() {
     super.initState();
+    AuthRequest authRequest =
+        BlocProvider.of<RegistrationBloc>(context).authRequest;
+    _nameEditingController.text = authRequest.name;
+    _surnameEditingController.text = authRequest.surname;
+    _emailEditingController.text = authRequest.email;
+    _phoneEditingController.text = authRequest.phoneNumber;
+    _profilePhoto = authRequest.profilePhoto;
     _nameEditingController.addListener(_listenFieldState);
     _emailEditingController.addListener(_listenFieldState);
     _phoneEditingController.addListener(_listenFieldState);
@@ -67,18 +75,27 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
               },
             ),
             MainTextField(
+              padding: const EdgeInsets.only(top: 20.0),
               textEditingController: _nameEditingController,
               hintText: AppStrings.name,
               width: MediaQuery.of(context).size.width * 0.9,
-              isValid: (text) => Patterns.textField.hasMatch(text),
+              isValid: (text) => Patterns.singleWord.hasMatch(text),
+              formatter: [
+                FilteringTextInputFormatter.allow(Patterns.singleWord),
+              ],
             ),
             MainTextField(
+              padding: const EdgeInsets.only(top: 20.0),
               textEditingController: _surnameEditingController,
               hintText: AppStrings.surname,
               width: MediaQuery.of(context).size.width * 0.9,
-              isValid: (text) => Patterns.textField.hasMatch(text),
+              isValid: (text) => Patterns.singleWord.hasMatch(text),
+              formatter: [
+                FilteringTextInputFormatter.allow(Patterns.singleWord),
+              ],
             ),
             MainTextField(
+              padding: const EdgeInsets.only(top: 20.0),
               textEditingController: _emailEditingController,
               hintText: AppStrings.email,
               width: MediaQuery.of(context).size.width * 0.9,
@@ -86,22 +103,26 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
               error: AppStrings.emailError,
             ),
             MainTextField(
+              padding: const EdgeInsets.only(top: 20.0),
               textEditingController: _phoneEditingController,
               hintText: AppStrings.phoneNumber,
+              inputType: TextInputType.phone,
               width: MediaQuery.of(context).size.width * 0.9,
-              prefixIcon: _countryCodePicker(),
-              formatter: [LengthLimitingTextInputFormatter(9)],
+              isValid: (text) => Patterns.phoneNumber.hasMatch(text),
+              error: AppStrings.phoneError,
+              formatter: [
+                PhoneNumberFormatter(),
+                LengthLimitingTextInputFormatter(14),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0),
-              child: ValueListenableBuilder<bool>(
-                valueListenable: _activeButtonNotifier,
-                builder: (context, value, _) {
-                  return MainButton.fromText(AppStrings.next,
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      onTap: value ? _onNextTap : null);
-                },
-              ),
+            ValueListenableBuilder<bool>(
+              valueListenable: _activeButtonNotifier,
+              builder: (context, value, _) {
+                return MainButton.fromText(AppStrings.next,
+                    padding: const EdgeInsets.only(top: 20.0),
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    onTap: value ? _onNextTap : null);
+              },
             ),
           ],
         ),
@@ -117,55 +138,6 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
     _phoneEditingController.dispose();
     _activeButtonNotifier.dispose();
     super.dispose();
-  }
-
-  Widget _countryCodePicker() {
-    return StreamBuilder<CountryApi>(
-      stream: BlocProvider.of<RegistrationBloc>(context).currentCountry,
-      builder: (BuildContext context, snapshot) {
-        if (snapshot.hasData) {
-          return SizedBox(
-            width: 110.0,
-            child: GestureDetector(
-              onTap: () {
-                _getCountryCode(snapshot.data!);
-              },
-              child: Padding(
-                  padding: const EdgeInsetsDirectional.only(start: 10),
-                  child: Row(
-                    children: <Widget>[
-                      Flag(
-                        snapshot.data!.code.toUpperCase(),
-                        height: 20,
-                        width: 20,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text('${snapshot.data!.dialCode}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1
-                              ?.copyWith(
-                                  fontSize: 18, color: AppColors.mineShaft)),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      SizedBox(
-                        height: 12,
-                        width: 12,
-                        child: SvgPicture.asset(AppImages.arrowDown,
-                            fit: BoxFit.contain),
-                      ),
-                    ],
-                  )),
-            ),
-          );
-        } else {
-          return const SizedBox.shrink();
-        }
-      },
-    );
   }
 
   void _listenFieldState() {
@@ -194,17 +166,8 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
     }
   }
 
-  void _getCountryCode(CountryApi country) async {
-    var countryCode = await showCountryCodePicker(context, country);
-    if (countryCode != null) {
-      BlocProvider.of<RegistrationBloc>(context).currentCountry.add(countryCode);
-    }
-  }
-
   Future<void> _onNextTap() async {
     if (_formState.currentState!.validate()) {
-      _formState.currentState!.save();
-
       var request = BlocProvider.of<RegistrationBloc>(context).authRequest;
       request.name = _nameEditingController.text.trim();
       request.surname = _surnameEditingController.text.trim();
@@ -212,9 +175,8 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
       request.email = _emailEditingController.text.trim();
       request.profilePhoto = _profilePhoto;
 
-      await widget.pageController.animateToPage(PagePosition.secondPageIndex,
-          duration: PageViewAnimationSettings.transitionDuration,
-          curve: PageViewAnimationSettings.transitionCurve);
+      await widget.pageController.nextPage(
+          duration: widget.transitionDuration, curve: widget.transitionCurve);
     }
   }
 }

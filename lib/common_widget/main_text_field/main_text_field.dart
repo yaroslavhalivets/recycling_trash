@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:retrash_app/common_widget/clear_search_button/clear_search_button.dart';
 import 'package:retrash_app/presentation/resources/app_colors/app_colors.dart';
 import 'package:retrash_app/presentation/resources/app_strings/app_strings.dart';
 
@@ -19,7 +18,7 @@ class MainTextField extends StatefulWidget {
   final ValueChanged<String>? onFieldSubmitted;
   final double? width;
   final double? height;
-  final double paddingTop;
+  final EdgeInsets padding;
   final int? maxLines;
   final bool emptyEnabled;
   final bool obscureText;
@@ -45,7 +44,7 @@ class MainTextField extends StatefulWidget {
       this.onFieldSubmitted,
       this.width,
       this.height,
-      this.paddingTop = 20.0,
+      this.padding = EdgeInsets.zero,
       this.maxLines = 1,
       this.emptyEnabled = false,
       this.obscureText = false,
@@ -55,38 +54,9 @@ class MainTextField extends StatefulWidget {
       this.textInputAction,
       this.contentPadding,
       this.fieldStyle,
-      this.fillColor, this.hintStyle})
+      this.fillColor,
+      this.hintStyle})
       : super(key: key);
-
-  MainTextField.withClearButton(bool displayClearButton,
-      {this.textEditingController,
-      this.hintText,
-      this.formatter,
-      this.inputType,
-      this.isValid,
-      this.error,
-      this.suffixIcon,
-      this.onChanged,
-      this.onFieldSubmitted,
-      this.width,
-      this.height,
-      this.paddingTop = 20.0,
-      this.maxLines,
-      this.emptyEnabled = false,
-      this.obscureText = false,
-      this.suffixText,
-      this.focusNode,
-      this.textInputAction,
-      this.contentPadding,
-      this.fieldStyle,
-      this.fillColor, this.hintStyle})
-      : prefixIcon = displayClearButton
-            ? ClearSearchButton(
-                onTap: () {
-                  textEditingController?.clear();
-                },
-              )
-            : null;
 
   @override
   _MainTextFieldState createState() => _MainTextFieldState();
@@ -96,13 +66,17 @@ class _MainTextFieldState extends State<MainTextField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: widget.paddingTop),
+      padding: widget.padding,
       child: SizedBox(
         height: widget.height,
         width: widget.width,
         child: TextFormField(
             focusNode: widget.focusNode,
-            style: widget.fieldStyle ?? Theme.of(context).textTheme.bodyText1,
+            style: widget.fieldStyle ??
+                Theme.of(context)
+                    .textTheme
+                    .bodyText2
+                    ?.copyWith(color: AppColors.onPrimary),
             obscureText: widget.obscureText,
             keyboardType: widget.inputType,
             controller: widget.textEditingController,
@@ -114,7 +88,8 @@ class _MainTextFieldState extends State<MainTextField> {
                 suffixText: widget.suffixText,
                 suffixStyle: Theme.of(context).textTheme.bodyText2,
                 hintText: widget.hintText,
-                hintStyle: widget.hintStyle ?? Theme.of(context).textTheme.bodyText2,
+                hintStyle:
+                    widget.hintStyle ?? Theme.of(context).textTheme.bodyText2,
                 suffixIcon: widget.suffixIcon,
                 prefixIcon: widget.prefixIcon,
                 errorMaxLines: 3,

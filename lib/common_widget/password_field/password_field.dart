@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:retrash_app/common_widget/main_text_field/main_text_field.dart';
 import 'package:retrash_app/presentation/resources/app_strings/app_strings.dart';
+import 'package:retrash_app/utils/patterns.dart';
 
 class PasswordField extends StatefulWidget {
   final TextEditingController controller;
@@ -18,18 +20,26 @@ class _PasswordFieldState extends State<PasswordField> {
   @override
   Widget build(BuildContext context) {
     return MainTextField(
+      padding: const EdgeInsets.only(top: 20.0),
       textEditingController: widget.controller,
       obscureText: _obscureText,
       hintText: AppStrings.password,
       width: MediaQuery.of(context).size.width * 0.9,
       suffixIcon: GestureDetector(
-        onTap: () {
-          setState(() {
-            _obscureText = !_obscureText;
-          });
-        },
+        onTap: _onTap,
         child: Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
       ),
+      isValid: (text) => Patterns.password.hasMatch(text),
+      error: AppStrings.invalidPassword,
+      formatter: [
+        FilteringTextInputFormatter.allow(Patterns.passwordFormatter),
+      ],
     );
+  }
+
+  void _onTap() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
   }
 }
