@@ -69,6 +69,7 @@ class _AuthScreenState extends BaseState<AuthScreen, AuthBloc>
                   builder: (context, value, _) {
                     return MainButton.fromText(AppStrings.enter,
                         width: MediaQuery.of(context).size.width * 0.9,
+                        onDone: _onDone,
                         onTap: value ? _onLogInTap : null);
                   },
                 ),
@@ -104,14 +105,13 @@ class _AuthScreenState extends BaseState<AuthScreen, AuthBloc>
 
   Future<void> _onLogInTap() async {
     if (_validate()) {
-      bloc
-          .logIn(_emailTextEditingController.text,
-              _passwordTextEditingController.text)
-          .then((credential) {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (_) => HomeScreen()));
-      });
+      return bloc.logIn(_emailTextEditingController.text,
+          _passwordTextEditingController.text);
     }
+  }
+
+  void _onDone() {
+    Navigator.of(context).push(MaterialPageRoute(builder: (_) => HomeScreen()));
   }
 
   void _onRegistrationTap() {

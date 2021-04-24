@@ -78,6 +78,7 @@ class _PasswordCreationPageState extends State<PasswordCreationPage> {
                     onTap: _onBackTap),
                 MainButton.fromText(AppStrings.finishRegistration,
                     padding: const EdgeInsets.only(left: 10.0),
+                    onDone: _onDone,
                     width: MediaQuery.of(context).size.width * 0.43,
                     onTap: _onFinishTap),
               ],
@@ -106,15 +107,16 @@ class _PasswordCreationPageState extends State<PasswordCreationPage> {
         AuthRequest request = bloc.authRequest;
         request.password = _passwordEditingController.text.trim();
         if (!request.isEmpty()) {
-          await bloc.signUp(request).then((_) {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (_) => HomeScreen()));
-          });
+          return bloc.signUp(request);
         }
       } else {
         bloc.dispatchError(AppStrings.passwordNotMatch);
       }
     }
+  }
+
+  void _onDone() {
+    Navigator.of(context).push(MaterialPageRoute(builder: (_) => HomeScreen()));
   }
 
   Future<void> _onBackTap() async {
