@@ -107,7 +107,9 @@ class _PasswordCreationPageState extends State<PasswordCreationPage> {
         AuthRequest request = bloc.authRequest;
         request.password = _passwordEditingController.text.trim();
         if (!request.isEmpty()) {
-          return bloc.signUp(request);
+          return bloc.signUp(request).then((credential) {
+            bloc.saveUid(credential);
+          });
         }
       } else {
         bloc.dispatchError(AppStrings.passwordNotMatch);

@@ -18,7 +18,9 @@ class _AppDrawerState extends BaseState<AppDrawer, AppDrawerBloc> {
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
-              children: [],
+              children: [
+
+              ],
             ),
           ),
         ),

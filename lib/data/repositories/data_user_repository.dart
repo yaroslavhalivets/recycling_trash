@@ -1,27 +1,22 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:retrash_app/data/api/uid.dart';
 import 'package:retrash_app/data/api/user_api.dart';
+import 'package:retrash_app/data/cache/cache_manager.dart';
 import 'package:retrash_app/data/db/db.dart';
 import 'package:retrash_app/data/requests/auth_request.dart';
 import 'package:retrash_app/domain/repository/user_repository.dart';
 import 'package:retrash_app/main.dart';
 
 class DataUserRepository implements UserRepository {
-  Db _db;
+  final Db _db;
+  final CacheManager _cacheManager;
 
-  DataUserRepository() : _db = sl.get<Db>();
-
-  @override
-  Future<UserCredential> logIn(String email, String password) async {
-    return _db.signIn(email, password);
-  }
+  DataUserRepository()
+      : _db = sl.get<Db>(),
+        _cacheManager = sl.get<CacheManager>();
 
   @override
-  Future<UserCredential> signUp(AuthRequest request) async {
-    return _db.signUp(request.email, request.password);
-  }
-
-  @override
-  Future<void> createUser(AuthRequest request) async {
+  Future<void> createUser(AuthRequest request, Uid uid) async {
     String? photoUrl;
     if (request.profilePhoto != null) {
       photoUrl = await _db.uploadSingleFile('users_photos',
@@ -31,6 +26,7 @@ class DataUserRepository implements UserRepository {
     UserApi userApi = UserApi.init(request.name, request.surname,
         request.phoneNumber, request.email, photoUrl);
 
+    await _cacheManager.saveUid(uid);
     await _db.add('Users', data: userApi.toMap());
   }
 }

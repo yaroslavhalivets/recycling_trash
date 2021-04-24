@@ -20,27 +20,30 @@ class DbManager implements Db {
   }
 
   @override
-  Future<String?> add(String path, {required Map<String, dynamic> data, String? docName}) async {
+  Future<String?> add(String path,
+      {required Map<String, dynamic> data, String? docName}) async {
     DocumentReference? result;
     try {
       result = await _firestore.collection(path).add(data);
+      return result.path;
     } catch (error) {
       logger.e(error);
+      return null;
     }
-    return result?.path;
   }
 
   @override
-  Future<dynamic> get(String collectionPath, [String? documentName]) async {
+  Future<Map<String, dynamic>?> get(String collectionPath,
+      [String? documentName]) async {
     DocumentSnapshot? result;
     try {
       result =
           await _firestore.collection(collectionPath).doc(documentName).get();
+      return result.data();
     } catch (error) {
       logger.e(error);
+      return null;
     }
-
-    return result?.data();
   }
 
   @override
@@ -57,6 +60,10 @@ class DbManager implements Db {
   Future<UserCredential> signIn(String email, String password) {
     return _firebaseAuth.signInWithEmailAndPassword(
         email: email, password: password);
+  }
+
+  Future<UserCredential> singInByCredential(AuthCredential credential) {
+    return _firebaseAuth.signInWithCredential(credential);
   }
 
   @override

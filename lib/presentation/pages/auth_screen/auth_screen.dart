@@ -105,8 +105,12 @@ class _AuthScreenState extends BaseState<AuthScreen, AuthBloc>
 
   Future<void> _onLogInTap() async {
     if (_validate()) {
-      return bloc.logIn(_emailTextEditingController.text,
-          _passwordTextEditingController.text);
+      return bloc
+          .logIn(_emailTextEditingController.text,
+              _passwordTextEditingController.text)
+          .then((credential) {
+        bloc.saveUid(credential);
+      });
     }
   }
 

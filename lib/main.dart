@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
             );
           },
           theme: _appTheme(context),
-          home: const SplashScreen(),
+          home: SplashScreen(),
         ));
   }
 
