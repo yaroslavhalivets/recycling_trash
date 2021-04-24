@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:retrash_app/common_widget/leading_app_bar/leading_app_bar.dart';
+import 'package:retrash_app/common_widget/main_app_bar.dart/main_app_bar.dart';
 import 'package:retrash_app/common_widget/registration_navigator/registration_navigator.dart';
 import 'package:retrash_app/presentation/bloc/base_screen.dart';
 import 'package:retrash_app/presentation/bloc/error_dispatcher.dart';
 import 'package:retrash_app/presentation/bloc/registration_bloc/registration_bloc.dart';
 import 'package:retrash_app/presentation/pages/registration_screen/password_creation_page.dart';
 import 'package:retrash_app/presentation/pages/registration_screen/user_info_page.dart';
+import 'package:retrash_app/presentation/resources/app_colors/app_colors.dart';
 import 'package:retrash_app/presentation/resources/app_strings/app_strings.dart';
 
 const int _initialPage = 0;
@@ -30,8 +31,15 @@ class _RegistrationScreenState
   double _currentPage = 0.0;
 
   @override
-  PreferredSizeWidget? appBar() =>
-      LeadingAppBar.fromText(AppStrings.registration);
+  PreferredSizeWidget? appBar() => MainAppBar.fromText(
+        AppStrings.registration,
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Icon(Icons.arrow_back, color: AppColors.surface),
+        ),
+      );
 
   @override
   void initState() {

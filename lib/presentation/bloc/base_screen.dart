@@ -102,7 +102,7 @@ abstract class BaseState<T extends BaseScreen, Bloc extends BaseBloc>
 
   Widget? floatingActionButton() => null;
 
-  double get drawerEdgeDragWidth => 20.0;
+  double get drawerEdgeDragWidth => 50.0;
 
   bool get showProgressIndicator => true;
 

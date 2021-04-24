@@ -30,9 +30,9 @@ class _PasswordFieldState extends State<PasswordField> {
         child: Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
       ),
       isValid: (text) => Patterns.password.hasMatch(text),
-      error: AppStrings.invalidPassword,
+      error: AppStrings.passwordLessThen8Symbols,
       formatter: [
-        FilteringTextInputFormatter.allow(Patterns.passwordFormatter),
+        FilteringTextInputFormatter.deny(Patterns.passwordDisAllow),
       ],
     );
   }

@@ -2,24 +2,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:retrash_app/presentation/resources/app_colors/app_colors.dart';
 
-class LeadingAppBar extends StatelessWidget with PreferredSizeWidget {
+class MainAppBar extends StatelessWidget with PreferredSizeWidget {
   final Widget child;
   final Color backgroundColor;
-  final Color arrowBackColor;
   final Color textColor;
+  final Widget? leading;
 
-  const LeadingAppBar(
+  const MainAppBar(
       {Key? key,
       required this.child,
       required this.backgroundColor,
-      required this.arrowBackColor,
-      required this.textColor})
+      required this.textColor,
+      this.leading})
       : super(key: key);
 
-  LeadingAppBar.fromText(String text,
+  MainAppBar.fromText(String text,
       {this.backgroundColor = AppColors.mantis,
-      this.arrowBackColor = Colors.white,
-      this.textColor = Colors.white})
+      this.textColor = Colors.white,
+      this.leading})
       : child = Text(
           text,
           style: TextStyle(fontSize: 20, color: textColor),
@@ -32,12 +32,7 @@ class LeadingAppBar extends StatelessWidget with PreferredSizeWidget {
       automaticallyImplyLeading: false,
       centerTitle: true,
       title: child,
-      leading: GestureDetector(
-        onTap: () {
-          Navigator.pop(context);
-        },
-        child: Icon(Icons.arrow_back, color: arrowBackColor),
-      ),
+      leading: leading,
     );
   }
 

@@ -20,7 +20,7 @@ class DbManager implements Db {
   }
 
   @override
-  Future<String?> add(String path, {required Map<String, dynamic> data}) async {
+  Future<String?> add(String path, {required Map<String, dynamic> data, String? docName}) async {
     DocumentReference? result;
     try {
       result = await _firestore.collection(path).add(data);
@@ -60,15 +60,15 @@ class DbManager implements Db {
   }
 
   @override
-  Future<UserCredential> signUp(String email, String password) async {
+  Future<UserCredential> signUp(String email, String password) {
     return _firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);
   }
 
   @override
-  Future<TaskSnapshot?> uploadSingleFile(String path,
-      {required File fileData}) async {
-    String fileName = basename(fileData.path);
+  Future<String?> uploadSingleFile(String path,
+      {required File fileData, String? name}) async {
+    String fileName = name ?? basename(fileData.path);
 
     Reference storageRef =
         _firebaseStorage.ref().child(path).child('$fileName');
@@ -80,6 +80,6 @@ class DbManager implements Db {
       logger.e(e);
     }
 
-    return data;
+    return data?.ref.getDownloadURL();
   }
 }

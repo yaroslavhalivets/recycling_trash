@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:retrash_app/common_widget/app_drawer/app_drawer.dart';
-import 'package:retrash_app/common_widget/main_app_bar/main_app_bar.dart';
 import 'package:retrash_app/presentation/bloc/base_screen.dart';
 import 'package:retrash_app/presentation/bloc/home_bloc/home_bloc.dart';
 import 'package:retrash_app/presentation/pages/map_screen/map_screen.dart';
@@ -41,9 +40,6 @@ class _HomeScreenState extends BaseState<HomeScreen, HomeBloc> {
     super.initState();
     notifier = ValueNotifier(_initTab);
   }
-
-  @override
-  PreferredSizeWidget? appBar() => MainAppBar();
 
   @override
   Widget body() => _TabPages(

@@ -48,9 +48,9 @@ class _PasswordCreationPageState extends State<PasswordCreationPage> {
               hintText: AppStrings.password,
               width: MediaQuery.of(context).size.width * 0.9,
               isValid: (text) => Patterns.password.hasMatch(text),
-              error: AppStrings.invalidPassword,
+              error: AppStrings.passwordLessThen8Symbols,
               formatter: [
-                FilteringTextInputFormatter.deny(Patterns.passwordFormatter),
+                FilteringTextInputFormatter.deny(Patterns.passwordDisAllow),
               ],
             ),
             MainTextField(
@@ -59,9 +59,9 @@ class _PasswordCreationPageState extends State<PasswordCreationPage> {
               hintText: AppStrings.approve,
               width: MediaQuery.of(context).size.width * 0.9,
               isValid: (text) => Patterns.password.hasMatch(text),
-              error: AppStrings.invalidPassword,
+              error: AppStrings.passwordLessThen8Symbols,
               formatter: [
-                FilteringTextInputFormatter.deny(Patterns.passwordFormatter),
+                FilteringTextInputFormatter.deny(Patterns.passwordDisAllow),
               ],
             ),
             const SizedBox(

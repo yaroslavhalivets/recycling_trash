@@ -11,4 +11,7 @@ class UserUseCase {
 
   Future<UserCredential> signUp(AuthRequest request) =>
       _repository.signUp(request);
+
+  Future<void> createUser(AuthRequest request) =>
+      _repository.createUser(request);
 }

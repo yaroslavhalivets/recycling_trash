@@ -9,7 +9,9 @@ class RegistrationBloc extends BaseBloc {
   final AuthRequest authRequest = AuthRequest.empty();
 
   Future<void> signUp(AuthRequest request) async {
-    await _userUseCase.signUp(request).catchError((e) {
+    await _userUseCase.signUp(request).then((_) {
+      _userUseCase.createUser(request);
+    }).catchError((e) {
       dispatchError(e);
     });
   }
