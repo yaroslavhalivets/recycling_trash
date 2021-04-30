@@ -18,10 +18,24 @@ class MainAppBar extends StatelessWidget with PreferredSizeWidget {
 
   MainAppBar.fromText(String text,
       {this.backgroundColor = AppColors.mantis,
-      this.textColor = Colors.white,
+      this.textColor = AppColors.surface,
       this.leading})
       : child = Text(
           text,
+          style: TextStyle(fontSize: 20, color: textColor),
+        );
+
+  MainAppBar.fromMenu(BuildContext context, String title,
+      {this.backgroundColor = AppColors.mantis,
+      this.textColor = AppColors.surface})
+      : leading = IconButton(
+          icon: const Icon(Icons.menu, size: 40.0, color: AppColors.surface),
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+        ),
+        child = Text(
+          title,
           style: TextStyle(fontSize: 20, color: textColor),
         );
 

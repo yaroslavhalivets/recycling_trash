@@ -89,4 +89,10 @@ class DbManager implements Db {
 
     return data?.ref.getDownloadURL();
   }
+
+  @override
+  Future<User?> getCurrentUser() {
+    User? user = _firebaseAuth.currentUser;
+    return Future.value(user);
+  }
 }

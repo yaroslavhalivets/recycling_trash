@@ -120,7 +120,7 @@ class _AuthScreenState extends BaseState<AuthScreen, AuthBloc>
 
   void _onRegistrationTap() {
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (_) => RegistrationScreen()));
+        .pushReplacement(MaterialPageRoute(builder: (_) => RegistrationScreen()));
   }
 }
 

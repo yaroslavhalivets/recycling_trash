@@ -21,4 +21,5 @@ abstract class Db {
       {required File fileData, String? name});
   Future<UserCredential> signUp(String email, String password);
   Future<UserCredential> singInByCredential(AuthCredential credential);
+  Future<User?> getCurrentUser();
 }

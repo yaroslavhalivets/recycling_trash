@@ -16,8 +16,13 @@ class RegistrationBloc extends BaseBloc {
     });
   }
 
-  Future<void> saveUid(UserCredential credential) async {
+  Future<void> createUser(AuthRequest request, UserCredential credential) {
+    Uid uid = getUid(credential);
+    return _signUpUseCase.createUser(request, uid);
+  }
+
+  Uid getUid(UserCredential credential) {
     String? uid = credential.user?.uid;
-    await _signUpUseCase.saveUid(Uid(uid));
+    return Uid(uid);
   }
 }

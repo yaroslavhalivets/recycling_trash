@@ -15,6 +15,4 @@ class SignUpUseCase {
 
   Future<UserCredential> signUp(AuthRequest request) =>
       _authRepository.signUp(request);
-
-  Future<bool> saveUid(Uid uid) => _authRepository.saveUid(uid);
 }
