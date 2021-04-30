@@ -11,7 +11,7 @@ class MapScreen extends BaseScreen {
 
 class _MapScreenState extends BaseState<MapScreen, MapBloc> {
   @override
-  PreferredSizeWidget? appBar() => MainAppBar.fromText(AppStrings.map);
+  PreferredSizeWidget? appBar() => MainAppBar.fromMenu(context, AppStrings.map);
 
   @override
   Widget body() => Column();

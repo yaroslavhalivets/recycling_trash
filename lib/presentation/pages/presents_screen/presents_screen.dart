@@ -10,9 +10,9 @@ class PresentsScreen extends BaseScreen {
 }
 
 class _PresentsScreenState extends BaseState<PresentsScreen, PresentsBloc> {
-
   @override
-  PreferredSizeWidget? appBar() => MainAppBar.fromText(AppStrings.prices);
+  PreferredSizeWidget? appBar() =>
+      MainAppBar.fromMenu(context, AppStrings.prices);
 
   @override
   Widget body() => Column();

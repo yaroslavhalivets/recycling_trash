@@ -11,7 +11,7 @@ class QrScreen extends BaseScreen {
 
 class _QrScreenState extends BaseState<QrScreen, QrBloc> {
   @override
-  PreferredSizeWidget? appBar() => MainAppBar.fromText(AppStrings.qr);
+  PreferredSizeWidget? appBar() => MainAppBar.fromMenu(context, AppStrings.qr);
 
   @override
   Widget body() => Column();

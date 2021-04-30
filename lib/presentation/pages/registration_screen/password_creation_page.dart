@@ -108,7 +108,7 @@ class _PasswordCreationPageState extends State<PasswordCreationPage> {
         request.password = _passwordEditingController.text.trim();
         if (!request.isEmpty()) {
           return bloc.signUp(request).then((credential) {
-            bloc.saveUid(credential);
+            bloc.createUser(request, credential);
           });
         }
       } else {
@@ -118,7 +118,7 @@ class _PasswordCreationPageState extends State<PasswordCreationPage> {
   }
 
   void _onDone() {
-    Navigator.of(context).push(MaterialPageRoute(builder: (_) => HomeScreen()));
+    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => HomeScreen()));
   }
 
   Future<void> _onBackTap() async {

@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:retrash_app/data/api/uid.dart';
 import 'package:retrash_app/data/api/user_api.dart';
 import 'package:retrash_app/data/cache/cache_manager.dart';
@@ -27,6 +26,27 @@ class DataUserRepository implements UserRepository {
         request.phoneNumber, request.email, photoUrl);
 
     await _cacheManager.saveUid(uid);
-    await _db.add('Users', data: userApi.toMap());
+    await _db.setData('Users', docName: uid.uid, data: userApi.toMap());
+  }
+
+  @override
+  Future<UserApi?> getUser() async {
+    Uid? uid = await _cacheManager.getUid();
+    if (uid != null && uid.uid != null) {
+      var data = await _db.get('Users', uid.uid!);
+      if (data != null) {
+        return UserApi.fromJson(data);
+      }
+      return null;
+    }
+    return null;
+  }
+
+  Future<String?> getProfilePhoto() async {
+    UserApi? userApi = await getUser();
+    if (userApi != null) {
+      return userApi.photoUrl;
+    }
+    return null;
   }
 }

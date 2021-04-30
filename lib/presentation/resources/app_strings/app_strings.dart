@@ -29,4 +29,10 @@ class AppStrings {
   static const String userNotFound = 'Користувач не знайдений';
   static const String passwordNotMatch = 'Паролі не співпадають';
   static const String passwordLessThen8Symbols = 'Пароль повинен бути не менше 8 символів';
+  static const String information = 'Інформація';
+  static const String settings = 'Налаштування';
+  static const String help = 'Допомога';
+  static const String aboutProgram = 'Про програму';
+  static const String changeAccount = 'Змінити акаунт';
+  static const String logOut = 'Вийти';
 }
