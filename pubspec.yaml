@@ -35,6 +35,7 @@ dependencies:
   location: ^4.1.1
   shared_preferences: ^2.0.5
   rx_command: ^6.0.0-null-safety.2
+  qr_code_scanner: ^0.4.0
 
 
 
