@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
-import 'package:retrash_app/di/modules/api_module.dart';
-import 'package:retrash_app/di/modules/injectors_module.dart';
-import 'package:retrash_app/di/modules/repository_module.dart';
 import 'package:retrash_app/presentation/bloc/bloc_provider.dart';
-import 'package:retrash_app/presentation/pages/splash_screen/splash_screen.dart';
-import 'package:retrash_app/presentation/resources/app_colors/app_colors.dart';
-
-import 'di/injector.dart';
-import 'di/modules/location_module.dart';
+import 'package:retrash_app/presentation/di/injector.dart';
+import 'package:retrash_app/presentation/di/modules/api_module.dart';
+import 'package:retrash_app/presentation/di/modules/auth_module.dart';
+import 'package:retrash_app/presentation/di/modules/location_module.dart';
+import 'package:retrash_app/presentation/di/modules/repository_module.dart';
+import 'package:retrash_app/presentation/di/modules/user_module.dart';
+import 'package:retrash_app/presentation/screens/splash_screen/splash_screen.dart';
+import 'package:retrash_app/presentation/resources/app_colors.dart';
 import 'presentation/bloc/base_bloc.dart';
 
 final logger = Logger(printer: SimplePrinter());
@@ -20,8 +20,13 @@ final sl = GetIt.instance;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  Injector.instance.inject(
-      [ApiModule(), RepositoryModule(), InjectorsModule(), LocationModule()]);
+  Injector.instance.inject([
+    ApiModule(),
+    RepositoryModule(),
+    AuthModule(),
+    LocationModule(),
+    UserModule()
+  ]);
 
   runApp(MyApp());
 }

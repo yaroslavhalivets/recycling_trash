@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:retrash_app/presentation/resources/app_colors/app_colors.dart';
+import 'package:retrash_app/presentation/resources/app_colors.dart';
 import 'base_bloc.dart';
 import 'bloc_provider.dart';
 

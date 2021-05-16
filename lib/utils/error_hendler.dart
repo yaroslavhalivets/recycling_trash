@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:retrash_app/presentation/resources/app_strings/app_strings.dart';
+import 'package:retrash_app/presentation/resources/app_strings.dart';
 
 import '../main.dart';
 
