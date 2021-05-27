@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:retrash_app/presentation/resources/app_colors/app_colors.dart';
+import 'package:retrash_app/presentation/resources/app_colors.dart';
 import 'base_bloc.dart';
 import 'bloc_provider.dart';
 
@@ -102,7 +102,7 @@ abstract class BaseState<T extends BaseScreen, Bloc extends BaseBloc>
 
   Widget? floatingActionButton() => null;
 
-  double get drawerEdgeDragWidth => 20.0;
+  double get drawerEdgeDragWidth => 50.0;
 
   bool get showProgressIndicator => true;
 

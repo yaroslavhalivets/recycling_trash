@@ -39,6 +39,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
                 <action android:name="android.permission.CAMERA" />
                 <action android:name="android.permission.FLASHLIGHT" />
+                <action android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+                <action android:name="android.permission.READ_EXTERNAL_STORAGE"/>
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.

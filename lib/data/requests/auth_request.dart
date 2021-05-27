@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:retrash_app/data/requests/request.dart';
 
 class AuthRequest extends Request {

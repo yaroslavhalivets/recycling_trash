@@ -14,8 +14,12 @@ abstract class Db {
 
   Future<void> setData(String collectionPath,
       {String? docName, required Map<String, dynamic> data});
-  Future<dynamic> get(String collectionPath, [String? documentName]);
+  Future<Map<String, dynamic>?> get(String collectionPath,
+      [String? documentName]);
   Future<UserCredential> signIn(String email, String password);
-  Future<TaskSnapshot?> uploadSingleFile(String path, {required File fileData});
+  Future<String?> uploadSingleFile(String path,
+      {required File fileData, String? name});
   Future<UserCredential> signUp(String email, String password);
+  Future<UserCredential> singInByCredential(AuthCredential credential);
+  Future<User?> getCurrentUser();
 }
