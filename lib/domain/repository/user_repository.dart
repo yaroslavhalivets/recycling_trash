@@ -6,4 +6,5 @@ abstract class UserRepository {
   Future<void> createUser(AuthRequest request, Uid uid);
   Future<UserApi?> getUser();
   Future<String?> getProfilePhoto();
+  Future<void> setUserPrize(int prizeId);
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:retrash_app/data/api/prize_api/prize_api.dart';
+import 'package:retrash_app/presentation/bloc/bloc_provider.dart';
 import 'package:retrash_app/presentation/common_widget/main_button/main_button.dart';
 import 'package:retrash_app/presentation/resources/app_strings.dart';
+import 'package:retrash_app/presentation/screens/presents_screen/presents_bloc.dart';
 
 class PrizeTile extends StatelessWidget {
   final PrizeApi prize;
@@ -51,7 +53,8 @@ class PrizeTile extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20.0),
             child: MainButton.fromText(
               AppStrings.chooseThisPrize,
-              onTap: () async {},
+              onTap: () =>
+                  BlocProvider.of<PresentsBloc>(context).setUserPrize(prize.id),
             ),
           ),
         ],
