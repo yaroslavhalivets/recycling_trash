@@ -1,3 +1,5 @@
+import 'package:retrash_app/data/type_alias.dart';
+
 class CountryApi {
   final String name;
   final String dialCode;
@@ -5,7 +7,7 @@ class CountryApi {
 
   CountryApi(this.name, this.dialCode, this.code);
 
-  factory CountryApi.fromJson(dynamic json) => CountryApi(
+  factory CountryApi.fromJson(Json json) => CountryApi(
         json['name'],
         json['dial_code'],
         json['code'],

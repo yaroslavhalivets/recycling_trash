@@ -28,11 +28,17 @@ class AppStrings {
   static const String phoneError = 'Неправильний номер телефону';
   static const String userNotFound = 'Користувач не знайдений';
   static const String passwordNotMatch = 'Паролі не співпадають';
-  static const String passwordLessThen8Symbols = 'Пароль повинен бути не менше 8 символів';
+  static const String passwordLessThen8Symbols =
+      'Пароль повинен бути не менше 8 символів';
   static const String information = 'Інформація';
   static const String settings = 'Налаштування';
   static const String help = 'Допомога';
   static const String aboutProgram = 'Про програму';
   static const String changeAccount = 'Змінити акаунт';
   static const String logOut = 'Вийти';
+  static String requiredPoints(int points) =>
+      'Необхідна кількість балів: $points';
+  static String partnerName(String name) => 'Партнер: $name';
+  static const String currentPointsCount = 'Поточна кількість балів: ';
+  static const String chooseThisPrize = 'Обрати цей приз';
 }

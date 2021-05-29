@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:retrash_app/data/type_alias.dart';
 
 class UserApi {
   String name;
@@ -15,7 +16,7 @@ class UserApi {
   UserApi.init(
       this.name, this.surname, this.phoneNumber, this.email, this.photoUrl);
 
-  factory UserApi.fromJson(Map<String, dynamic> json) {
+  factory UserApi.fromJson(Json json) {
     return UserApi(json['name'], json['surname'], json['phoneNumber'],
         json['email'], json['points'], json['photo_url'], json['favorite_bin']);
   }

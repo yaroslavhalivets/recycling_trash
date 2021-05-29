@@ -1,0 +1,4 @@
+enum PrizeType {
+  discount,
+  fullPrice
+}

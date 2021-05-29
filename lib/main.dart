@@ -8,6 +8,7 @@ import 'package:retrash_app/presentation/di/injector.dart';
 import 'package:retrash_app/presentation/di/modules/api_module.dart';
 import 'package:retrash_app/presentation/di/modules/auth_module.dart';
 import 'package:retrash_app/presentation/di/modules/location_module.dart';
+import 'package:retrash_app/presentation/di/modules/prize_module.dart';
 import 'package:retrash_app/presentation/di/modules/repository_module.dart';
 import 'package:retrash_app/presentation/di/modules/user_module.dart';
 import 'package:retrash_app/presentation/screens/splash_screen/splash_screen.dart';
@@ -25,7 +26,8 @@ Future<void> main() async {
     RepositoryModule(),
     AuthModule(),
     LocationModule(),
-    UserModule()
+    UserModule(),
+    PrizeModule()
   ]);
 
   runApp(MyApp());
@@ -35,17 +37,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        bloc: ApplicationBloc(),
-        child: MaterialApp(
-          builder: (_context, navigator) {
-            return Theme(
-              data: _appTheme(_context),
-              child: navigator!,
-            );
-          },
-          theme: _appTheme(context),
-          home: SplashScreen(),
-        ));
+      bloc: ApplicationBloc(),
+      child: MaterialApp(
+        builder: (_context, navigator) {
+          return Theme(
+            data: _appTheme(_context),
+            child: navigator!,
+          );
+        },
+        theme: _appTheme(context),
+        home: SplashScreen(),
+      ),
+    );
   }
 
   _appTheme(BuildContext context) {

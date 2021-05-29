@@ -33,7 +33,7 @@ class DataUserRepository implements UserRepository {
   Future<UserApi?> getUser() async {
     Uid? uid = await _cacheManager.getUid();
     if (uid != null && uid.uid != null) {
-      var data = await _db.get('Users', uid.uid!);
+      var data = await _db.getDocument('Users', uid.uid!);
       if (data != null) {
         return UserApi.fromJson(data);
       }
