@@ -22,11 +22,22 @@ class _InformationScreenState
   @override
   Widget body() => ListView(
         children: [
-          AnimatedListTile(),
-          AnimatedListTile(),
-          AnimatedListTile(),
-          AnimatedListTile(),
-          AnimatedListTile(),
+          AnimatedListTile(fontText: 'Пластик',
+              backTitle: 'Пластик',
+              backInfo: 'Пластикові пакети, бляшанки',
+              backBonuses: '200 бонусів за кілограм пластику'),
+          AnimatedListTile(fontText: 'Алюміній',
+              backTitle: 'Алюміній',
+              backInfo: 'Алюмінієві бляшанки',
+              backBonuses: '300 бонусів за кілограм алюмінію'),
+          AnimatedListTile(fontText: 'Скло',
+              backTitle: 'Скло',
+              backInfo: 'Скляні бляшанки',
+              backBonuses: '100 бонусів за кілограм скла'),
+          AnimatedListTile(fontText: 'Папір',
+              backTitle: 'Папір',
+              backInfo: 'Макулатура',
+              backBonuses: '500 бонусів за кілограм паперу'),
         ],
       );
 

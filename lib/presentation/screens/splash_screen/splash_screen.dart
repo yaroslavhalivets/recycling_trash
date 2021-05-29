@@ -19,7 +19,7 @@ class _SplashScreenState extends BaseState<SplashScreen, SplashBloc> {
     super.initState();
     Future.delayed(const Duration(seconds: 2), () => bloc.checkAuth());
     Future.delayed(Duration(seconds: 2)).then((_) => bloc.checkAuth.listen(
-        (isLogged) => isLogged! ? _navigateToHome() : _navigateToLogIn()));
+        (isLogged) => isLogged ? _navigateToHome() : _navigateToLogIn()));
   }
 
   @override
