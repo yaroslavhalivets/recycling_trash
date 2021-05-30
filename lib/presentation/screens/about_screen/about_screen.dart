@@ -5,6 +5,7 @@ import 'package:retrash_app/presentation/common_widget/animated_list_tile/animat
 import 'package:retrash_app/presentation/common_widget/main_app_bar.dart/main_app_bar.dart';
 import 'package:retrash_app/presentation/screens/about_screen/about_bloc.dart';
 import 'package:retrash_app/presentation/resources/app_strings.dart';
+import 'package:retrash_app/presentation/screens/app_drawer/app_drawer.dart';
 
 class AboutScreen extends BaseScreen {
   @override
@@ -15,8 +16,11 @@ class _AboutScreenState extends BaseState<AboutScreen, AboutBloc> {
   @override
   PreferredSizeWidget? appBar() =>
       MainAppBar.fromMenu(AppStrings.aboutProgram, onLeadingTap: () {
-        Scaffold.of(context).openDrawer();
+        scaffoldKey.currentState!.openDrawer();
       });
+
+  @override
+  Widget? drawer() => AppDrawer();
 
   @override
   Widget body() => Padding(
