@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:retrash_app/presentation/screens/about_screen/about_screen.dart';
 import 'package:retrash_app/presentation/screens/app_drawer/app_drawer_bloc.dart';
 import 'package:retrash_app/presentation/bloc/base_drawer.dart';
 import 'package:retrash_app/presentation/common_widget/drawer_head/drawer_head.dart';
@@ -37,8 +38,15 @@ class _AppDrawerState extends BaseState<AppDrawer, AppDrawerBloc> {
                   text: AppStrings.settings,
                   onTap: () {},
                 ),
-                _DrawerTab(text: AppStrings.help, onTap: () {}),
-                _DrawerTab(text: AppStrings.aboutProgram, onTap: () {}),
+                _DrawerTab(text: AppStrings.help, 
+                    onTap: () {
+
+                  }),
+                _DrawerTab(text: AppStrings.aboutProgram,
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => AboutScreen()));
+                    }),
                 _DrawerTab(text: AppStrings.changeAccount, onTap: () {}),
                 _DrawerTab(text: AppStrings.logOut, onTap: () {}),
               ],
