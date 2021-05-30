@@ -19,28 +19,19 @@ class _HelpScreenState extends BaseState<HelpScreen, HelpBloc> {
       });
 
   @override
-  Widget body() => Padding(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Retrash',
-              style: Theme.of(context).textTheme.subtitle2,
-            ),
-            Text(
-              'Цю програму було створено групою студентів з ХНУРЕ для покращення екологічної ситуації в Україні',
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
-            Text(
-              'Версія 1.0',
-              style: Theme.of(context).textTheme.bodyText1,
-            )
-          ],
-        ),
-      );
+  Widget body() => PageView(
+    children: <Widget>[
+      Container(
+        color: Colors.pink,
+      ),
+      Container(
+        color: Colors.cyan,
+      ),
+      Container(
+        color: Colors.deepPurple,
+      ),
+    ],
+  );
 
   @override
   HelpBloc provideBloc() => HelpBloc();
