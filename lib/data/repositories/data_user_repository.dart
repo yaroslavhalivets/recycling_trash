@@ -33,7 +33,7 @@ class DataUserRepository implements UserRepository {
   Future<UserApi?> getUser() async {
     Uid? uid = await _cacheManager.getUid();
     if (uid != null && uid.uid != null) {
-      var data = await _db.get('Users', uid.uid!);
+      var data = await _db.getDocument('Users', uid.uid);
       if (data != null) {
         return UserApi.fromJson(data);
       }
@@ -48,5 +48,14 @@ class DataUserRepository implements UserRepository {
       return userApi.photoUrl;
     }
     return null;
+  }
+
+  Future<void> setUserPrize(int prizeId) async {
+    var data = {'prize_id': prizeId};
+
+    Uid? uid = await _cacheManager.getUid();
+    if (uid != null && uid.uid != null) {
+      await _db.setData('Users', docName: uid.uid, data: data);
+    }
   }
 }

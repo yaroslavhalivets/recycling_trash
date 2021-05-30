@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import '../../main.dart';
 import 'db.dart';
 import 'package:path/path.dart';
+import 'package:retrash_app/data/type_alias.dart';
 
 class DbManager implements Db {
   late final FirebaseFirestore _firestore;
@@ -33,13 +34,11 @@ class DbManager implements Db {
   }
 
   @override
-  Future<Map<String, dynamic>?> get(String collectionPath,
-      [String? documentName]) async {
-    DocumentSnapshot? result;
+  Future<QueryData?> get(String collectionPath) async {
+    QuerySnapshot? result;
     try {
-      result =
-          await _firestore.collection(collectionPath).doc(documentName).get();
-      return result.data();
+      result = await _firestore.collection(collectionPath).get();
+      return result.docs.map((doc) => doc.data()).toList();
     } catch (error) {
       logger.e(error);
       return null;
@@ -94,5 +93,18 @@ class DbManager implements Db {
   Future<User?> getCurrentUser() {
     User? user = _firebaseAuth.currentUser;
     return Future.value(user);
+  }
+
+  Future<Map<String, dynamic>?> getDocument(String collectionPath,
+      [String? documentName]) async {
+    DocumentSnapshot? result;
+    try {
+      result =
+          await _firestore.collection(collectionPath).doc(documentName).get();
+      return result.data();
+    } catch (error) {
+      logger.e(error);
+      return null;
+    }
   }
 }

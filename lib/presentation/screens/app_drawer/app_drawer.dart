@@ -33,7 +33,10 @@ class _AppDrawerState extends BaseState<AppDrawer, AppDrawerBloc> {
                             builder: (_) => InformationScreen()));
                       }),
                 ),
-                _DrawerTab(text: AppStrings.settings, onTap: () {}),
+                _DrawerTab(
+                  text: AppStrings.settings,
+                  onTap: () {},
+                ),
                 _DrawerTab(text: AppStrings.help, onTap: () {}),
                 _DrawerTab(text: AppStrings.aboutProgram, onTap: () {}),
                 _DrawerTab(text: AppStrings.changeAccount, onTap: () {}),
