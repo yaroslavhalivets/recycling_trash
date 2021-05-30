@@ -6,7 +6,9 @@ import 'package:retrash_app/presentation/bloc/base_drawer.dart';
 import 'package:retrash_app/presentation/common_widget/drawer_head/drawer_head.dart';
 import 'package:retrash_app/presentation/resources/app_colors.dart';
 import 'package:retrash_app/presentation/resources/app_strings.dart';
+import 'package:retrash_app/presentation/screens/help_screen/help_screen.dart';
 import 'package:retrash_app/presentation/screens/information_screen/information_screen.dart';
+import 'package:retrash_app/presentation/screens/settings_screen/settings_screen.dart';
 
 class AppDrawer extends BaseDrawer {
   @override
@@ -36,11 +38,15 @@ class _AppDrawerState extends BaseState<AppDrawer, AppDrawerBloc> {
                 ),
                 _DrawerTab(
                   text: AppStrings.settings,
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SettingsScreen()));
+                  },
                 ),
                 _DrawerTab(text: AppStrings.help, 
                     onTap: () {
-
+                      Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HelpScreen()));
                   }),
                 _DrawerTab(text: AppStrings.aboutProgram,
                     onTap: () {

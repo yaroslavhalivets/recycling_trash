@@ -18,30 +18,44 @@ class _SettingsScreenState extends BaseState<SettingsScreen, SettingsBloc> {
         Scaffold.of(context).openDrawer();
       });
 
-  @override
-  Widget body() => Padding(
-    padding: EdgeInsets.all(10),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          'Retrash',
-          style: Theme.of(context).textTheme.subtitle2,
-        ),
-        Text(
-          'Цю програму було створено групою студентів з ХНУРЕ для покращення екологічної ситуації в Україні',
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodyText1,
-        ),
-        Text(
-          'Версія 1.0',
-          style: Theme.of(context).textTheme.bodyText1,
-        )
-      ],
-    ),
-  );
+  List<bool> inputs = List.filled(4, true);
+  List<String> titles = <String>[
+    'Отримувати повідомлення',
+    'Підсвічувати індикатор повідомлень',
+    'Звук повідомлень',
+    'Вмикати геоданні автоматично'
+  ];
+  void ItemChanged(bool val, int index) {
+    setState(() {
+      inputs[index] = val;
+    });
+  }
 
   @override
   SettingsBloc provideBloc() => SettingsBloc();
+
+  @override
+  Widget body() => ListView.builder(
+      itemCount: inputs.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Card(
+          child: Container(
+            padding: EdgeInsets.all(10.0),
+            child: Column(
+              children: <Widget>[
+                CheckboxListTile(
+                    value: inputs[index],
+                    title: Text(
+                        titles[index],
+                        style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    controlAffinity: ListTileControlAffinity.leading,
+                    onChanged: (bool? val) {
+                      ItemChanged(val!, index);
+                    })
+              ],
+            ),
+          ),
+        );
+      });
 }
