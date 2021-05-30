@@ -5,6 +5,7 @@ import 'package:retrash_app/data/db/db.dart';
 import 'package:retrash_app/data/requests/auth_request.dart';
 import 'package:retrash_app/domain/repository/user_repository.dart';
 import 'package:retrash_app/main.dart';
+import 'package:retrash_app/data/type_alias.dart';
 
 class DataUserRepository implements UserRepository {
   final Db _db;
@@ -51,10 +52,14 @@ class DataUserRepository implements UserRepository {
   }
 
   Future<void> setUserPrize(int prizeId) async {
-    var data = {'prize_id': prizeId};
-
     Uid? uid = await _cacheManager.getUid();
     if (uid != null && uid.uid != null) {
+      Json? json = await _db.getDocument('Users', uid.uid);
+      UserApi user = UserApi.fromJson(json!);
+
+      Json data = {'prize_id': prizeId};
+      data.addAll(user.toMap());
+
       await _db.setData('Users', docName: uid.uid, data: data);
     }
   }

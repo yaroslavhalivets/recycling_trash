@@ -14,13 +14,15 @@ class MainAppBar extends StatelessWidget with PreferredSizeWidget {
       required this.child,
       required this.backgroundColor,
       required this.textColor,
-      this.leading, this.onLeadingTap})
+      this.leading,
+      this.onLeadingTap})
       : super(key: key);
 
   MainAppBar.fromText(String text,
       {this.backgroundColor = AppColors.mantis,
       this.textColor = AppColors.surface,
-      this.leading, this.onLeadingTap})
+      this.leading,
+      this.onLeadingTap})
       : child = Text(
           text,
           style: TextStyle(fontSize: 20, color: textColor),
@@ -28,7 +30,8 @@ class MainAppBar extends StatelessWidget with PreferredSizeWidget {
 
   MainAppBar.fromMenu(String title,
       {this.backgroundColor = AppColors.mantis,
-      this.textColor = AppColors.surface, required this.onLeadingTap})
+      this.textColor = AppColors.surface,
+      required this.onLeadingTap})
       : leading = IconButton(
           icon: const Icon(Icons.menu, size: 40.0, color: AppColors.surface),
           onPressed: onLeadingTap,

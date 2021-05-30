@@ -29,7 +29,7 @@ class _AppDrawerState extends BaseState<AppDrawer, AppDrawerBloc> {
                   child: _DrawerTab(
                       text: AppStrings.information,
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
                             builder: (_) => InformationScreen()));
                       }),
                 ),

@@ -55,10 +55,12 @@ class _SplashScreenState extends BaseState<SplashScreen, SplashBloc> {
   SplashBloc provideBloc() => SplashBloc();
 
   _navigateToLogIn() {
-    Navigator.of(context).push(MaterialPageRoute(builder: (_) => AuthScreen()));
+    Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: (_) => AuthScreen()));
   }
 
   _navigateToHome() {
-    Navigator.of(context).push(MaterialPageRoute(builder: (_) => HomeScreen()));
+    Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: (_) => HomeScreen()));
   }
 }
