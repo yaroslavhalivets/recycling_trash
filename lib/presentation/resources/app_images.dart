@@ -9,4 +9,5 @@ class AppImages {
   static const String arrowDown = 'assets/images/arrow_down.svg';
   static const String done = 'assets/images/done.svg';
   static const String userAvatar = 'assets/images/user.png';
+  static const String prize = 'assets/images/prize.png';
 }

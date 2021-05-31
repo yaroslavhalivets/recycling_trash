@@ -9,16 +9,18 @@ class UserApi {
   int? points;
   String? photoUrl;
   GeoPoint? favoriteBin;
+  int? prizeId;
+
 
   UserApi(this.name, this.surname, this.phoneNumber, this.email, this.points,
-      this.photoUrl, this.favoriteBin);
+      this.photoUrl, this.favoriteBin, this.prizeId);
 
   UserApi.init(
       this.name, this.surname, this.phoneNumber, this.email, this.photoUrl);
 
   factory UserApi.fromJson(Json json) {
     return UserApi(json['name'], json['surname'], json['phoneNumber'],
-        json['email'], json['points'], json['photo_url'], json['favorite_bin']);
+        json['email'], json['points'], json['photo_url'], json['favorite_bin'], json['prize_id']);
   }
 
   Map<String, dynamic> toMap() {
@@ -29,7 +31,8 @@ class UserApi {
       'email': email,
       'points': points ?? 0,
       'photo_url': photoUrl,
-      'favorite_bin': favoriteBin
+      'favorite_bin': favoriteBin,
+      'prize_id': prizeId
     };
   }
 }

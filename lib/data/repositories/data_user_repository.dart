@@ -57,8 +57,17 @@ class DataUserRepository implements UserRepository {
       Json? json = await _db.getDocument('Users', uid.uid);
       UserApi user = UserApi.fromJson(json!);
 
-      Json data = {'prize_id': prizeId};
-      data.addAll(user.toMap());
+      Json data = {
+        'name': user.name,
+        'surname': user.surname,
+        'phoneNumber': user.phoneNumber,
+        'email': user.email,
+        'points': user.points ?? 0,
+        'photo_url': user.photoUrl,
+        'favorite_bin': user.favoriteBin,
+        'prize_id': prizeId
+      };
+
 
       await _db.setData('Users', docName: uid.uid, data: data);
     }
