@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:retrash_app/presentation/bloc/base_screen.dart';
-import 'package:retrash_app/presentation/common_widget/animated_list_tile/animated_list_tile.dart';
 import 'package:retrash_app/presentation/common_widget/main_app_bar.dart/main_app_bar.dart';
 import 'package:retrash_app/presentation/screens/app_drawer/app_drawer.dart';
 import 'package:retrash_app/presentation/screens/settings_screen/settings_bloc.dart';
@@ -29,7 +28,7 @@ class _SettingsScreenState extends BaseState<SettingsScreen, SettingsBloc> {
     'Звук повідомлень',
     'Вмикати геоданні автоматично'
   ];
-  void ItemChanged(bool val, int index) {
+  void itemChanged(bool val, int index) {
     setState(() {
       inputs[index] = val;
     });
@@ -55,7 +54,7 @@ class _SettingsScreenState extends BaseState<SettingsScreen, SettingsBloc> {
                     ),
                     controlAffinity: ListTileControlAffinity.leading,
                     onChanged: (bool? val) {
-                      ItemChanged(val!, index);
+                      itemChanged(val!, index);
                     })
               ],
             ),

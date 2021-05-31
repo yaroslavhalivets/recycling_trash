@@ -10,4 +10,5 @@ class AppImages {
   static const String done = 'assets/images/done.svg';
   static const String userAvatar = 'assets/images/user.png';
   static const String prize = 'assets/images/prize.png';
+  static const String star = 'assets/images/star.png';
 }
