@@ -62,11 +62,13 @@ class _MapScreenState extends BaseState<MapScreen, MapBloc> {
                 .asStream()
                 .listen((_) {
               if (_infoWidgetRoute != null) {
-                Navigator.of(context).push(_infoWidgetRoute!).then<void>(
-                  (newValue) {
-                    _infoWidgetRoute = null;
-                  },
-                );
+                if(mounted) {
+                  Navigator.of(context).push(_infoWidgetRoute!).then<void>(
+                        (newValue) {
+                      _infoWidgetRoute = null;
+                    },
+                  );
+                }
               }
             });
           },
