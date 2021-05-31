@@ -66,12 +66,51 @@ class _HelpScreenState extends BaseState<HelpScreen, HelpBloc> {
                 children: [
                   Container(
                     color: Colors.white,
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+                        Text(
+                          "Викинути сміття у точку прийому",
+                          style: Theme.of(context).textTheme.subtitle2,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Image.asset('assets/images/real_trash_can.jpeg'),
+                      ],
+                    ),
                   ),
                   Container(
                     color: Colors.white,
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+                        Text(
+                          "Зісканувати QR код з екрану на пункті видачі",
+                          style: Theme.of(context).textTheme.subtitle2,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Image.asset('assets/images/qr-scanning.png'),
+                      ],
+                    ),
                   ),
                   Container(
                     color: Colors.white,
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+                        Text(
+                          "Ваші бали нараховано на ваш баланс",
+                          style: Theme.of(context).textTheme.subtitle2,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Expanded(child: Image.asset('assets/images/prizes_page_after_qr_scanning.jpg'),)
+                      ],
+                    ),
                   ),
                 ],
               ),
