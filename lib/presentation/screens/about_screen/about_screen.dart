@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:retrash_app/presentation/bloc/base_screen.dart';
-import 'package:retrash_app/presentation/common_widget/animated_list_tile/animated_list_tile.dart';
 import 'package:retrash_app/presentation/common_widget/main_app_bar.dart/main_app_bar.dart';
 import 'package:retrash_app/presentation/screens/about_screen/about_bloc.dart';
 import 'package:retrash_app/presentation/resources/app_strings.dart';

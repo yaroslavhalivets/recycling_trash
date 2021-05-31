@@ -10,6 +10,7 @@ import 'package:retrash_app/presentation/di/modules/auth_module.dart';
 import 'package:retrash_app/presentation/di/modules/location_module.dart';
 import 'package:retrash_app/presentation/di/modules/prize_module.dart';
 import 'package:retrash_app/presentation/di/modules/repository_module.dart';
+import 'package:retrash_app/presentation/di/modules/trash_can_module.dart';
 import 'package:retrash_app/presentation/di/modules/user_module.dart';
 import 'package:retrash_app/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:retrash_app/presentation/resources/app_colors.dart';
@@ -27,7 +28,8 @@ Future<void> main() async {
     AuthModule(),
     LocationModule(),
     UserModule(),
-    PrizeModule()
+    PrizeModule(),
+    TrashCanModule()
   ]);
 
   runApp(MyApp());
