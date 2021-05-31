@@ -41,4 +41,5 @@ class AppStrings {
   static String partnerName(String name) => 'Партнер: $name';
   static const String currentPointsCount = 'Поточна кількість балів: ';
   static const String chooseThisPrize = 'Обрати цей приз';
+  static const String privateArea = 'Особистий кабінет';
 }

@@ -26,10 +26,22 @@ class DataPrizesRepository implements PrizesRepository {
     List<PrizeApi> prizes = <PrizeApi>[];
     for (Json json in data!) {
       PrizeApi prize = PrizeApi.fromJson(json);
-      if(prize.prizeType == type) {
+      if (prize.prizeType == type) {
         prizes.add(PrizeApi.fromJson(json));
       }
     }
     return prizes;
+  }
+
+  @override
+  Future<PrizeApi?> getPrizesById(int id) async {
+    List<Json>? data = await _db.get('Prizes');
+    for (Json json in data!) {
+      PrizeApi prize = PrizeApi.fromJson(json);
+      if (prize.id == id) {
+        return PrizeApi.fromJson(json);
+      }
+    }
+    return null;
   }
 }

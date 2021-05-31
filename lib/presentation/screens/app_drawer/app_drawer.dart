@@ -8,6 +8,7 @@ import 'package:retrash_app/presentation/resources/app_colors.dart';
 import 'package:retrash_app/presentation/resources/app_strings.dart';
 import 'package:retrash_app/presentation/screens/help_screen/help_screen.dart';
 import 'package:retrash_app/presentation/screens/information_screen/information_screen.dart';
+import 'package:retrash_app/presentation/screens/private_area_screen/private_screen_screen.dart';
 import 'package:retrash_app/presentation/screens/settings_screen/settings_screen.dart';
 
 class AppDrawer extends BaseDrawer {
@@ -27,6 +28,12 @@ class _AppDrawerState extends BaseState<AppDrawer, AppDrawerBloc> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const DrawerHead(),
+                _DrawerTab(
+                    text: AppStrings.privateArea,
+                    onTap: () {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (_) => PrivateAreaScreen()));
+                    }),
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
                   child: _DrawerTab(
@@ -39,19 +46,27 @@ class _AppDrawerState extends BaseState<AppDrawer, AppDrawerBloc> {
                 _DrawerTab(
                   text: AppStrings.settings,
                   onTap: () {
-                    Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SettingsScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SettingsScreen()));
                   },
                 ),
-                _DrawerTab(text: AppStrings.help, 
+                _DrawerTab(
+                    text: AppStrings.help,
                     onTap: () {
-                      Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HelpScreen()));
-                  }),
-                _DrawerTab(text: AppStrings.aboutProgram,
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HelpScreen()));
+                    }),
+                _DrawerTab(
+                    text: AppStrings.aboutProgram,
                     onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => AboutScreen()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AboutScreen()));
                     }),
                 _DrawerTab(text: AppStrings.changeAccount, onTap: () {}),
                 _DrawerTab(text: AppStrings.logOut, onTap: () {}),
