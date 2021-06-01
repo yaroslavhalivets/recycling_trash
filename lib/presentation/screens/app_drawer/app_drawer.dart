@@ -6,7 +6,9 @@ import 'package:retrash_app/presentation/bloc/base_drawer.dart';
 import 'package:retrash_app/presentation/common_widget/drawer_head/drawer_head.dart';
 import 'package:retrash_app/presentation/resources/app_colors.dart';
 import 'package:retrash_app/presentation/resources/app_strings.dart';
+import 'package:retrash_app/presentation/screens/auth_screen/auth_screen.dart';
 import 'package:retrash_app/presentation/screens/help_screen/help_screen.dart';
+import 'package:retrash_app/presentation/screens/home_screen/home_screen.dart';
 import 'package:retrash_app/presentation/screens/information_screen/information_screen.dart';
 import 'package:retrash_app/presentation/screens/private_area_screen/private_screen_screen.dart';
 import 'package:retrash_app/presentation/screens/settings_screen/settings_screen.dart';
@@ -28,21 +30,26 @@ class _AppDrawerState extends BaseState<AppDrawer, AppDrawerBloc> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const DrawerHead(),
+                Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: _DrawerTab(
+                        text: 'Головна',
+                        onTap: () {
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(builder: (_) => HomeScreen()));
+                        })),
                 _DrawerTab(
                     text: AppStrings.privateArea,
                     onTap: () {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (_) => PrivateAreaScreen()));
                     }),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
-                  child: _DrawerTab(
-                      text: AppStrings.information,
-                      onTap: () {
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (_) => InformationScreen()));
-                      }),
-                ),
+                _DrawerTab(
+                    text: AppStrings.information,
+                    onTap: () {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (_) => InformationScreen()));
+                    }),
                 _DrawerTab(
                   text: AppStrings.settings,
                   onTap: () {
@@ -68,8 +75,15 @@ class _AppDrawerState extends BaseState<AppDrawer, AppDrawerBloc> {
                           MaterialPageRoute(
                               builder: (context) => AboutScreen()));
                     }),
-                _DrawerTab(text: AppStrings.changeAccount, onTap: () {}),
-                _DrawerTab(text: AppStrings.logOut, onTap: () {}),
+                _DrawerTab(
+                  text: AppStrings.logOut,
+                  onTap: () {
+                    bloc.logOut().then((_) {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (_) => AuthScreen()));
+                    });
+                  },
+                ),
               ],
             ),
           ),

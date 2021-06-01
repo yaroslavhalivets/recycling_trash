@@ -7,4 +7,5 @@ abstract class AuthRepository {
   Future<UserCredential> signUp(AuthRequest request);
   Future<bool> saveUid(Uid uid);
   Future<bool> checkAuth();
+  Future<void> logOut();
 }

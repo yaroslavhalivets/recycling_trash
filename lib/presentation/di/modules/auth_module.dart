@@ -1,4 +1,5 @@
 import 'package:retrash_app/domain/interactor/check_auth_use_case.dart';
+import 'package:retrash_app/domain/interactor/log_out_use_case.dart';
 import 'package:retrash_app/domain/interactor/sign_in_use_case.dart';
 import 'package:retrash_app/domain/interactor/sign_up_use_case.dart';
 import 'package:retrash_app/main.dart';
@@ -11,5 +12,6 @@ class AuthModule implements Module {
     sl.registerLazySingleton<SignUpUseCase>(() => SignUpUseCase());
     sl.registerLazySingleton<SignInUseCase>(() => SignInUseCase());
     sl.registerLazySingleton<CheckAuthUseCase>(() => CheckAuthUseCase());
+    sl.registerLazySingleton<LogOutUseCase>(() => LogOutUseCase());
   }
 }

@@ -107,4 +107,6 @@ class DbManager implements Db {
       return null;
     }
   }
+
+  Future<void> logOut() => _firebaseAuth.signOut();
 }
