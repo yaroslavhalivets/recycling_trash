@@ -4,6 +4,7 @@ import 'package:retrash_app/data/api/trash_can_api/trash_can_statuses.dart';
 import 'package:retrash_app/domain/interactor/change_bin_status_use_case.dart';
 import 'package:retrash_app/domain/interactor/get_current_location_use_case.dart';
 import 'package:retrash_app/domain/interactor/get_trash_cans_use_case.dart';
+import 'package:retrash_app/domain/interactor/get_user_use_case.dart';
 import 'package:retrash_app/domain/interactor/set_favorite_bin_use_case.dart';
 import 'package:retrash_app/main.dart';
 import 'package:retrash_app/presentation/bloc/base_bloc.dart';
@@ -31,11 +32,19 @@ class MapBloc extends BaseBloc {
     }
   }
 
+  Future<bool> isActiveFavorite(TrashCanApi api) async {
+    final user = await sl.get<GetUserUseCase>().execute();
+    if (user != null && user.favoriteBin != null) {
+      return user.favoriteBin == api.geoPoint;
+    }
+    return false;
+  }
+
   Future<LocationApi?> getCurrentLocation() =>
       sl.get<GetCurrentLocationUseCase>().execute();
 
-  Future<void> setFavoriteBin(TrashCanApi api) =>
-      sl.get<SetFavoriteBinUseCase>().execute(api);
+  Future<void> setFavoriteBin(TrashCanApi api, {bool disActivate = false}) =>
+      sl.get<SetFavoriteBinUseCase>().execute(api, disActivate: disActivate);
 
   Future<void> changeBinStatus(TrashCanApi api, TrashCanStatuses status) =>
       sl.get<ChangeBinStatusUseCase>().execute(api, status);
