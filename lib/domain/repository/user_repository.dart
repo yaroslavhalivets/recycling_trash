@@ -9,4 +9,5 @@ abstract class UserRepository {
   Future<String?> getProfilePhoto();
   Future<void> setUserPrize(int prizeId);
   Future<void> setFavoriteBin(TrashCanApi canApi, {bool disActivate = false});
+  Future<void> scorePoint(int points);
 }

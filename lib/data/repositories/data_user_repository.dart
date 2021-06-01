@@ -94,4 +94,25 @@ class DataUserRepository implements UserRepository {
       await _db.setData('Users', docName: uid.uid, data: data);
     }
   }
+
+  Future<void> scorePoint(int points) async {
+    Uid? uid = await _cacheManager.getUid();
+    if (uid != null && uid.uid != null) {
+      Json? json = await _db.getDocument('Users', uid.uid);
+      UserApi user = UserApi.fromJson(json!);
+
+      Json data = {
+        'name': user.name,
+        'surname': user.surname,
+        'phoneNumber': user.phoneNumber,
+        'email': user.email,
+        'points': user.points! + points,
+        'photo_url': user.photoUrl,
+        'favorite_bin': user.favoriteBin,
+        'prize_id': user.prizeId
+      };
+
+      await _db.setData('Users', docName: uid.uid, data: data);
+    }
+  }
 }
