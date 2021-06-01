@@ -9,9 +9,10 @@ class PrizeApi {
   String partnerName;
   int requiredPoints;
   PrizeType prizeType;
+  int discountValue;
 
   PrizeApi(this.id, this.imageUrl, this.name, this.partnerName,
-      this.requiredPoints, this.prizeType);
+      this.requiredPoints, this.prizeType, this.discountValue);
 
   factory PrizeApi.fromJson(Json json) => PrizeApi(
       json['id'],
@@ -19,7 +20,8 @@ class PrizeApi {
       json['name'],
       json['partner_name'],
       json['required_points'],
-      encodeMap(json['type'], _prizeTypeMap)!);
+      encodeMap(json['type'], _prizeTypeMap)!,
+      json['discount_value']);
 }
 
 const _prizeTypeMap = {

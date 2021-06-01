@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:retrash_app/data/api/prize_api/prize_api.dart';
 import 'package:retrash_app/presentation/bloc/bloc_provider.dart';
 import 'package:retrash_app/presentation/common_widget/main_button/main_button.dart';
+import 'package:retrash_app/presentation/resources/app_colors.dart';
 import 'package:retrash_app/presentation/resources/app_strings.dart';
 import 'package:retrash_app/presentation/screens/presents_screen/presents_bloc.dart';
 
@@ -44,6 +45,17 @@ class PrizeTile extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20.0),
               child: Text(AppStrings.partnerName(prize.partnerName),
                   style: Theme.of(context).textTheme.bodyText1),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20.0),
+              child: Text('Знижка: ${prize.discountValue}%',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1
+                      ?.copyWith(color: AppColors.mantis)),
             ),
           ),
           const SizedBox(
