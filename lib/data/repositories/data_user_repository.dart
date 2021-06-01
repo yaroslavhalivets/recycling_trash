@@ -1,3 +1,4 @@
+import 'package:retrash_app/data/api/trash_can_api/trash_can_api.dart';
 import 'package:retrash_app/data/api/uid.dart';
 import 'package:retrash_app/data/api/user_api.dart';
 import 'package:retrash_app/data/cache/cache_manager.dart';
@@ -66,6 +67,28 @@ class DataUserRepository implements UserRepository {
         'photo_url': user.photoUrl,
         'favorite_bin': user.favoriteBin,
         'prize_id': prizeId
+      };
+
+
+      await _db.setData('Users', docName: uid.uid, data: data);
+    }
+  }
+
+  Future<void> setFavoriteBin(TrashCanApi canApi) async {
+    Uid? uid = await _cacheManager.getUid();
+    if (uid != null && uid.uid != null) {
+      Json? json = await _db.getDocument('Users', uid.uid);
+      UserApi user = UserApi.fromJson(json!);
+
+      Json data = {
+        'name': user.name,
+        'surname': user.surname,
+        'phoneNumber': user.phoneNumber,
+        'email': user.email,
+        'points': user.points ?? 0,
+        'photo_url': user.photoUrl,
+        'favorite_bin': canApi.geoPoint,
+        'prize_id': user.prizeId
       };
 
 

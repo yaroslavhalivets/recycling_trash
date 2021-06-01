@@ -4,7 +4,7 @@ import 'package:retrash_app/data/type_alias.dart';
 import 'package:retrash_app/utils/encode_map.dart';
 
 class TrashCanApi {
-  int id;
+  String id;
   GeoPoint geoPoint;
   TrashCanStatuses status;
 
@@ -14,4 +14,8 @@ class TrashCanApi {
       json['id'], json['geopoint'], encodeMap(json['status'], _statusMap)!);
 }
 
-const _statusMap = {'work': TrashCanStatuses.work};
+const _statusMap = {
+  'work': TrashCanStatuses.work,
+  'full': TrashCanStatuses.full,
+  'broken': TrashCanStatuses.broken
+};

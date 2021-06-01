@@ -3,15 +3,29 @@ import 'package:flutter/painting.dart';
 import 'package:retrash_app/presentation/resources/app_images.dart';
 
 class _InfoWidgetBody extends StatelessWidget {
+  final VoidCallback onFavoriteTap;
+  final VoidCallback onFullTap;
+  final VoidCallback onBreakTap;
+
+  const _InfoWidgetBody(
+      {Key? key,
+      required this.onFavoriteTap,
+      required this.onFullTap,
+      required this.onBreakTap})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _Button.fromIcon(AppImages.star),
+        _Button.fromIcon(
+          AppImages.star,
+          onTap: onFavoriteTap
+        ),
         const Divider(),
-        _Button.fromText('Заповнений'),
+        _Button.fromText('Заповнений', onTap: onFullTap),
         const Divider(),
-        _Button.fromText('Не працює'),
+        _Button.fromText('Не працює', onTap: onBreakTap),
       ],
     );
   }
@@ -19,10 +33,12 @@ class _InfoWidgetBody extends StatelessWidget {
 
 class _Button extends StatelessWidget {
   final Widget child;
+  final VoidCallback onTap;
 
-  const _Button({Key? key, required this.child}) : super(key: key);
+  const _Button({Key? key, required this.child, required this.onTap})
+      : super(key: key);
 
-  _Button.fromText(String text)
+  _Button.fromText(String text, {required this.onTap})
       : child = Builder(
           builder: (context) => Text(
             text,
@@ -30,7 +46,7 @@ class _Button extends StatelessWidget {
           ),
         );
 
-  _Button.fromIcon(String iconPath)
+  _Button.fromIcon(String iconPath, {required this.onTap})
       : child = Image.asset(iconPath, height: 25.0, width: 25.0);
 
   @override
@@ -38,6 +54,7 @@ class _Button extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: GestureDetector(
+        onTap: onTap,
         child: Container(
           decoration: BoxDecoration(color: Colors.white),
           child: child,
@@ -82,8 +99,14 @@ class InfoWidgetRoute extends PopupRoute {
   final BuildContext buildContext;
   final TextStyle textStyle;
   final Rect mapsWidgetSize;
+  final VoidCallback onFavoriteTap;
+  final VoidCallback onFullTap;
+  final VoidCallback onBreakTap;
 
   InfoWidgetRoute({
+    required this.onFavoriteTap,
+    required this.onFullTap,
+    required this.onBreakTap,
     required this.buildContext,
     required this.textStyle,
     required this.mapsWidgetSize,
@@ -119,6 +142,9 @@ class InfoWidgetRoute extends PopupRoute {
               mapsWidgetSize: mapsWidgetSize, width: width, height: height),
           child: InfoWidgetPopUp(
             infoWidgetRoute: this,
+            onFullTap: onFullTap,
+            onBreakTap: onBreakTap,
+            onFavoriteTap: onFavoriteTap,
           ),
         );
       }),
@@ -130,9 +156,15 @@ class InfoWidgetPopUp extends StatefulWidget {
   const InfoWidgetPopUp({
     Key? key,
     required this.infoWidgetRoute,
+    required this.onFavoriteTap,
+    required this.onFullTap,
+    required this.onBreakTap,
   }) : super(key: key);
 
   final InfoWidgetRoute infoWidgetRoute;
+  final VoidCallback onFavoriteTap;
+  final VoidCallback onFullTap;
+  final VoidCallback onBreakTap;
 
   @override
   _InfoWidgetPopUpState createState() => _InfoWidgetPopUpState();
@@ -162,7 +194,11 @@ class _InfoWidgetPopUpState extends State<InfoWidgetPopUp> {
           clipper: _InfoWidgetClipper(),
           child: Container(
             color: Colors.white,
-            child: _InfoWidgetBody(),
+            child: _InfoWidgetBody(
+              onFavoriteTap: widget.onFavoriteTap,
+              onBreakTap: widget.onBreakTap,
+              onFullTap: widget.onFullTap,
+            ),
           ),
         ),
       ),

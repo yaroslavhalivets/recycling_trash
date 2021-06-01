@@ -52,13 +52,13 @@ class _QrScreenState extends BaseState<QrScreen, QrBloc> {
 
   void _onQRViewCreated(QRViewController controller) {
     _qrController = controller;
-    if (!alreadyRead) {
-      controller.scannedDataStream.listen((scanData) {
+    controller.scannedDataStream.listen((scanData) {
+      if (!alreadyRead) {
         _barcodeData = scanData;
         alreadyRead = true;
         logger.log(Level.info, _barcodeData);
-      });
-    }
+      }
+    });
   }
 
   @override
