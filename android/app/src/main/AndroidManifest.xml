@@ -8,8 +8,8 @@
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="retrash_app"
-        android:icon="@mipmap/ic_launcher"
+        android:label="ReTrash"
+        android:icon="@mipmap/launcher_icon"
         android:requestLegacyExternalStorage="true">
 
         <meta-data

@@ -18,7 +18,7 @@ class _PrivateAreaScreenState
     extends BaseState<PrivateAreaScreen, PrivateAreaBloc> {
   @override
   PreferredSizeWidget? appBar() =>
-      MainAppBar.fromMenu(AppStrings.prices, onLeadingTap: () {
+      MainAppBar.fromMenu('Особиста інформація', onLeadingTap: () {
         scaffoldKey.currentState!.openDrawer();
       });
 
