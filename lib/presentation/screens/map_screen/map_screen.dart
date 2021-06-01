@@ -102,6 +102,8 @@ class _MapScreenState extends BaseState<MapScreen, MapBloc> {
     final RenderBox? renderBox = context.findRenderObject() as RenderBox;
     Rect _itemRect = renderBox!.localToGlobal(Offset.zero) & renderBox.size;
 
+    bool isFavorite = await bloc.isActiveFavorite(point);
+
     _infoWidgetRoute = InfoWidgetRoute(
       buildContext: context,
       textStyle: const TextStyle(
@@ -117,8 +119,13 @@ class _MapScreenState extends BaseState<MapScreen, MapBloc> {
         bloc.changeBinStatus(point, TrashCanStatuses.broken);
         Navigator.pop(context);
       },
-      onFavoriteTap: () {
+      onFavoriteActive: () {
         bloc.setFavoriteBin(point);
+        Navigator.pop(context);
+      },
+      isFavorite: isFavorite,
+      onFavoriteUnActive: () {
+        bloc.setFavoriteBin(point, disActivate: true);
         Navigator.pop(context);
       },
     );

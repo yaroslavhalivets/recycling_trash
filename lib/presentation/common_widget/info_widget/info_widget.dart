@@ -1,26 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:retrash_app/presentation/common_widget/animated_favarite_icon_button/animated_favorite_icon_button.dart';
 import 'package:retrash_app/presentation/resources/app_images.dart';
 
 class _InfoWidgetBody extends StatelessWidget {
-  final VoidCallback onFavoriteTap;
+  final VoidCallback onFavoriteActive;
+  final VoidCallback onFavoriteUnActive;
   final VoidCallback onFullTap;
   final VoidCallback onBreakTap;
+  final bool isFavorite;
 
   const _InfoWidgetBody(
       {Key? key,
-      required this.onFavoriteTap,
+      required this.onFavoriteActive,
       required this.onFullTap,
-      required this.onBreakTap})
+      required this.onBreakTap,
+      required this.isFavorite,
+      required this.onFavoriteUnActive})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _Button.fromIcon(
-          AppImages.star,
-          onTap: onFavoriteTap
+        AnimatedFavoriteIconButton(
+          onActivate: onFavoriteActive,
+          isActive: isFavorite,
+          onUnActivate: onFavoriteUnActive,
         ),
         const Divider(),
         _Button.fromText('Заповнений', onTap: onFullTap),
@@ -99,17 +105,21 @@ class InfoWidgetRoute extends PopupRoute {
   final BuildContext buildContext;
   final TextStyle textStyle;
   final Rect mapsWidgetSize;
-  final VoidCallback onFavoriteTap;
+  final VoidCallback onFavoriteActive;
+  final VoidCallback onFavoriteUnActive;
   final VoidCallback onFullTap;
   final VoidCallback onBreakTap;
+  final bool isFavorite;
 
   InfoWidgetRoute({
-    required this.onFavoriteTap,
+    required this.onFavoriteActive,
     required this.onFullTap,
     required this.onBreakTap,
     required this.buildContext,
     required this.textStyle,
     required this.mapsWidgetSize,
+    required this.onFavoriteUnActive,
+    required this.isFavorite,
     this.width = 150,
     this.height = 150,
     this.barrierLabel,
@@ -144,7 +154,9 @@ class InfoWidgetRoute extends PopupRoute {
             infoWidgetRoute: this,
             onFullTap: onFullTap,
             onBreakTap: onBreakTap,
-            onFavoriteTap: onFavoriteTap,
+            onFavoriteActive: onFavoriteActive,
+            onFavoriteUnActive: onFavoriteUnActive,
+            isFavorite: isFavorite,
           ),
         );
       }),
@@ -156,15 +168,19 @@ class InfoWidgetPopUp extends StatefulWidget {
   const InfoWidgetPopUp({
     Key? key,
     required this.infoWidgetRoute,
-    required this.onFavoriteTap,
+    required this.onFavoriteActive,
     required this.onFullTap,
     required this.onBreakTap,
+    required this.onFavoriteUnActive,
+    required this.isFavorite,
   }) : super(key: key);
 
   final InfoWidgetRoute infoWidgetRoute;
-  final VoidCallback onFavoriteTap;
+  final VoidCallback onFavoriteActive;
+  final VoidCallback onFavoriteUnActive;
   final VoidCallback onFullTap;
   final VoidCallback onBreakTap;
+  final bool isFavorite;
 
   @override
   _InfoWidgetPopUpState createState() => _InfoWidgetPopUpState();
@@ -195,9 +211,11 @@ class _InfoWidgetPopUpState extends State<InfoWidgetPopUp> {
           child: Container(
             color: Colors.white,
             child: _InfoWidgetBody(
-              onFavoriteTap: widget.onFavoriteTap,
+              onFavoriteActive: widget.onFavoriteActive,
               onBreakTap: widget.onBreakTap,
               onFullTap: widget.onFullTap,
+              onFavoriteUnActive: widget.onFavoriteUnActive,
+              isFavorite: widget.isFavorite,
             ),
           ),
         ),
