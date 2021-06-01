@@ -24,4 +24,5 @@ abstract class Db {
   Future<User?> getCurrentUser();
   Future<Map<String, dynamic>?> getDocument(String collectionPath,
       [String? documentName]);
+  Future<void> logOut();
 }

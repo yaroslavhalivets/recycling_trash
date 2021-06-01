@@ -35,4 +35,11 @@ class DataAuthRepository implements AuthRepository {
     Uid? uid = await _cacheManager.getUid();
     return uid != null && uid.uid != null;
   }
+
+  @override
+  Future<void> logOut() async {
+    await _cacheManager.clear();
+    await  _db.logOut();
+  }
+
 }
