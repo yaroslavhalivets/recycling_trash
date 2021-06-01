@@ -5,14 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:retrash_app/presentation/resources/app_colors.dart';
 
 class AnimatedListTile extends StatefulWidget {
-  final String fontText, backTitle, backInfo, backBonuses;
+  final String fontText, backTitle, backInfo, backBonuses, imgPath;
 
   const AnimatedListTile(
       {Key? key,
       required this.fontText,
       required this.backTitle,
       required this.backInfo,
-      required this.backBonuses})
+      required this.backBonuses,
+      required this.imgPath})
       : super(key: key);
 
   @override
@@ -53,7 +54,9 @@ class _AnimatedListTileState extends State<AnimatedListTile>
                 )
               : _FontSide(
                   animationController: _flipAnimationController,
-                  text: widget.fontText),
+                  text: widget.fontText,
+                  imgPath: widget.imgPath,
+                ),
         ),
       );
 
@@ -120,9 +123,13 @@ class _BackSide extends StatelessWidget {
 class _FontSide extends StatelessWidget {
   final AnimationController animationController;
   final String text;
+  final String imgPath;
 
   const _FontSide(
-      {Key? key, required this.animationController, required this.text})
+      {Key? key,
+      required this.animationController,
+      required this.text,
+      required this.imgPath})
       : super(key: key);
 
   @override
@@ -136,9 +143,19 @@ class _FontSide extends StatelessWidget {
         child: Container(
           height: 120.0,
           color: AppColors.mantis,
-          child: Center(
-            child: Text(text),
-          ),
+          child: Padding(
+            padding: EdgeInsets.all(10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  text,
+                  style: Theme.of(context).textTheme.headline2,
+                ),
+                Image.asset(imgPath),
+              ],
+            ),
+          )
         ),
       ),
     );

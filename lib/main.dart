@@ -106,6 +106,11 @@ class MyApp extends StatelessWidget {
           fontSize: 50.0,
           fontFamily: 'Como',
           fontWeight: FontWeight.bold),
+      headline2: TextStyle(
+          color: AppColors.surface,
+          fontSize: 40.0,
+          fontFamily: 'Como',
+          fontWeight: FontWeight.bold),
       subtitle1: TextStyle(
           fontSize: 30.0,
           color: AppColors.onPrimary,
