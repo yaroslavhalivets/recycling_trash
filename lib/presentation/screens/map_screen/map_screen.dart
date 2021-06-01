@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:retrash_app/data/api/location_api.dart';
 import 'package:retrash_app/data/api/trash_can_api/trash_can_api.dart';
+import 'package:retrash_app/data/api/trash_can_api/trash_can_statuses.dart';
 import 'package:retrash_app/presentation/bloc/base_screen.dart';
 import 'package:retrash_app/presentation/common_widget/info_widget/info_widget.dart';
 import 'package:retrash_app/presentation/common_widget/main_app_bar.dart/main_app_bar.dart';
@@ -62,9 +63,9 @@ class _MapScreenState extends BaseState<MapScreen, MapBloc> {
                 .asStream()
                 .listen((_) {
               if (_infoWidgetRoute != null) {
-                if(mounted) {
+                if (mounted) {
                   Navigator.of(context).push(_infoWidgetRoute!).then<void>(
-                        (newValue) {
+                    (newValue) {
                       _infoWidgetRoute = null;
                     },
                   );
@@ -108,6 +109,18 @@ class _MapScreenState extends BaseState<MapScreen, MapBloc> {
         color: Colors.black,
       ),
       mapsWidgetSize: _itemRect,
+      onFullTap: () {
+        bloc.changeBinStatus(point, TrashCanStatuses.full);
+        Navigator.pop(context);
+      },
+      onBreakTap: () {
+        bloc.changeBinStatus(point, TrashCanStatuses.broken);
+        Navigator.pop(context);
+      },
+      onFavoriteTap: () {
+        bloc.setFavoriteBin(point);
+        Navigator.pop(context);
+      },
     );
 
     await _controller.animateCamera(
