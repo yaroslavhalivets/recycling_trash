@@ -1,4 +1,5 @@
 import 'package:retrash_app/domain/interactor/get_user_use_case.dart';
+import 'package:retrash_app/domain/interactor/score_point_use_case.dart';
 import 'package:retrash_app/domain/interactor/set_favorite_bin_use_case.dart';
 import 'package:retrash_app/domain/interactor/set_user_pize_use_case.dart';
 import 'package:retrash_app/presentation/di/modules/module.dart';
@@ -14,5 +15,6 @@ class UserModule implements Module {
     sl.registerLazySingleton<GetUserUseCase>(() => GetUserUseCase());
     sl.registerLazySingleton<SetFavoriteBinUseCase>(
         () => SetFavoriteBinUseCase());
+    sl.registerLazySingleton<ScorePointUseCase>(() => ScorePointUseCase());
   }
 }

@@ -18,7 +18,6 @@ class QrScreen extends BaseScreen {
 class _QrScreenState extends BaseState<QrScreen, QrBloc> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'Qr');
   bool alreadyRead = false;
-  Barcode? _barcodeData;
   QRViewController? _qrController;
 
   @override
@@ -54,9 +53,8 @@ class _QrScreenState extends BaseState<QrScreen, QrBloc> {
     _qrController = controller;
     controller.scannedDataStream.listen((scanData) {
       if (!alreadyRead) {
-        _barcodeData = scanData;
+        bloc.scorePoint(int.parse(scanData.code));
         alreadyRead = true;
-        logger.log(Level.info, _barcodeData);
       }
     });
   }
