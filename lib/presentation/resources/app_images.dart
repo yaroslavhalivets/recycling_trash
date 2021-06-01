@@ -11,4 +11,5 @@ class AppImages {
   static const String userAvatar = 'assets/images/user.png';
   static const String prize = 'assets/images/prize.png';
   static const String star = 'assets/images/star.png';
+  static const String blackWhiteStar = 'assets/images/black_white_star.png';
 }

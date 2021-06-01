@@ -69,12 +69,12 @@ class DataUserRepository implements UserRepository {
         'prize_id': prizeId
       };
 
-
       await _db.setData('Users', docName: uid.uid, data: data);
     }
   }
 
-  Future<void> setFavoriteBin(TrashCanApi canApi) async {
+  Future<void> setFavoriteBin(TrashCanApi canApi,
+      {bool disActivate = false}) async {
     Uid? uid = await _cacheManager.getUid();
     if (uid != null && uid.uid != null) {
       Json? json = await _db.getDocument('Users', uid.uid);
@@ -87,10 +87,9 @@ class DataUserRepository implements UserRepository {
         'email': user.email,
         'points': user.points ?? 0,
         'photo_url': user.photoUrl,
-        'favorite_bin': canApi.geoPoint,
+        'favorite_bin': disActivate ? null : canApi.geoPoint,
         'prize_id': user.prizeId
       };
-
 
       await _db.setData('Users', docName: uid.uid, data: data);
     }
